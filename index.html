@@ -3,219 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINDIE Restaurant | หน้าหลัก</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>KINDIE - Indie & Nature Dining</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-brown: #3d2314; /* สีน้ำตาลเข้มจากโลโก้ */
-            --accent-gold: #c5a059;
-            --bg-cream: #f4ece2;    /* สีครีมจากพื้นหลังรูปภาพ */
-            --white: #ffffff;
+            --dark-brown: #3d2b1f; /* สีจากโลโก้ */
+            --nature-green: #465c47;
+            --soft-cream: #fdfaf5;
+            --gold-accent: #b5894b;
         }
 
         body {
             margin: 0;
-            font-family: 'Sarabun', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--primary-brown);
+            font-family: 'Mitr', sans-serif;
+            background-color: var(--soft-cream);
+            color: var(--dark-brown);
         }
 
-        /* Navigation */
-        nav {
+        /* Header & Logo Section */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 8%;
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: #fff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .logo-area {
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px; /* ปรับขนาดโลโก้ตามต้องการ */
+            width: auto;
+        }
+
+        .shop-name {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            color: var(--primary-brown);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--primary-brown);
-            margin-left: 25px;
-            font-weight: 600;
+            color: var(--dark-brown);
+            margin-left: 20px;
+            font-size: 14px;
             transition: 0.3s;
-            font-size: 0.95rem;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-gold);
-        }
+        .nav-links a:hover { color: var(--gold-accent); }
 
-        /* Hero / Banner */
-        .hero-container {
+        /* Hero Banner (สี่เหลี่ยมแนวนอน - บรรยากาศร้าน) */
+        .hero-banner {
             padding: 30px 8%;
         }
 
-        .main-banner {
+        .banner-box {
             width: 100%;
-            height: 500px;
+            height: 450px;
+            border-radius: 20px;
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070') center/cover;
-            border-radius: 15px;
+                        url('https://images.unsplash.com/photo-1544145945-f904253db0ad?q=80&w=2000') center/cover;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--white);
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            color: #fff;
+            border: 10px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .main-banner h1 {
+        .banner-content h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-style: italic;
         }
 
-        /* Featured Menu Section (จัดแบบบนและล่าง) */
-        .menu-section {
-            padding: 60px 8%;
-            max-width: 900px;
-            margin: 0 auto;
+        /* Featured Menu Grid (2x2 ตามวงกลมสีแดง) */
+        .featured-section {
+            padding: 50px 8%;
+            text-align: center;
         }
 
         .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 22px;
             margin-bottom: 40px;
-            color: var(--primary-brown);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* การจัด Layout เมนูแบบบนและล่าง (Vertical List) */
-        .menu-list {
-            display: flex;
-            flex-direction: column;
-            gap: 40px; /* ระยะห่างระหว่างเมนูบนและล่าง */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* แบ่ง 2 คอลัมน์ */
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .menu-card {
-            display: flex;
-            background: var(--white);
-            border-radius: 12px;
+        .menu-item {
+            background: #fff;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            align-items: center;
+            transition: 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .menu-card:hover {
-            transform: scale(1.02);
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
-        .menu-image {
-            width: 40%;
-            height: 250px;
+        .menu-img {
+            width: 100%;
+            height: 280px;
             object-fit: cover;
         }
 
-        .menu-info {
-            padding: 30px;
-            width: 60%;
+        .menu-detail {
+            padding: 25px;
         }
 
-        .menu-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-top: 0;
-            color: var(--primary-brown);
+        .menu-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
         }
 
-        .menu-description {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .price-tag {
-            font-size: 1.3rem;
+        .menu-price {
+            color: var(--gold-accent);
             font-weight: bold;
-            color: var(--accent-gold);
+            font-size: 1.2rem;
         }
 
         footer {
+            padding: 40px;
             text-align: center;
-            padding: 50px;
-            background-color: var(--primary-brown);
-            color: var(--bg-cream);
-            margin-top: 50px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #888;
         }
 
-        /* ปรับแต่งสำหรับมือถือ */
         @media (max-width: 768px) {
-            .menu-card {
-                flex-direction: column;
-            }
-            .menu-image, .menu-info {
-                width: 100%;
-            }
-            .main-banner h1 {
-                font-size: 2.5rem;
-            }
+            .menu-grid { grid-template-columns: 1fr; }
+            .banner-box { height: 300px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo-area">KINDIE</div>
-        <div class="nav-links">
-            <a href="#">หน้าหลัก</a>
-            <a href="#">ติดต่อ</a>
-            <a href="#">เมนู</a>
+    <header>
+        <div class="brand-container">
+            <img src="logo-kindie.png" alt="KINDIE Logo" class="logo-img">
+            <span class="shop-name">KINDIE</span>
         </div>
-    </nav>
+        <nav class="nav-links">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">จองโต๊ะ</a>
+            <a href="#">ติดต่อเรา</a>
+            <a href="#">เมนู</a>
+        </nav>
+    </header>
 
     <main>
-        <section class="hero-container">
-            <div class="main-banner">
-                <h1>Experience KINDIE</h1>
-                <p>รสชาติที่คัดสรรมาเพื่อคุณ</p>
+        <section class="hero-banner">
+            <div class="banner-box">
+                <div class="banner-content">
+                    <h1>KINDIE </h1>
+                    <p>Welcome To The Restaurant</p>
+                </div>
             </div>
         </section>
 
-        <section class="menu-section">
+        <section class="featured-section">
             <h2 class="section-title">เมนูแนะนำ</h2>
             
-            <div class="menu-list">
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500" alt="Special Dish 1" class="menu-image">
-                    <div class="menu-info">
-                        <h3>Signature Wagyu Steak</h3>
-                        <p class="menu-description">เนื้อวากิวคัดพิเศษ ย่างด้วยระดับความสุกที่คุณเลือกได้ เสิร์ฟพร้อมซอสสูตรลับเฉพาะของร้าน KINDIE</p>
-                        <span class="price-tag">฿1,450</span>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800" class="menu-img" alt="Steak">
+                    <div class="menu-detail">
+                        <div class="menu-title">Wagyu Beef Steak with Red Wine Sauce</div>
+                        <div class="menu-price">฿590</div>
                     </div>
                 </div>
 
-                <div class="menu-card">
-                    <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=500" alt="Special Dish 2" class="menu-image">
-                    <div class="menu-info">
-                        <h3>Truffle Pasta</h3>
-                        <p class="menu-description">พาสต้าเส้นสดคลุกเคล้ากับซอสครีมทรัฟเฟิลเข้มข้น หอมละมุนในทุกคำที่สัมผัส</p>
-                        <span class="price-tag">฿590</span>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800" class="menu-img" alt="Salad">
+                    <div class="menu-detail">
+                        <div class="menu-title">Avocado & Smoked Salmon Salad</div>
+                        <div class="menu-price">฿450</div>
                     </div>
                 </div>
 
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=800" class="menu-img" alt="Dessert">
+                    <div class="menu-detail">
+                        <div class="menu-title">Signature Warm Chocolate Lava</div>
+                        <div class="menu-price">฿280</div>
+                    </div>
                 </div>
+
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800" class="menu-img" alt="Drink">
+                    <div class="menu-detail">
+                        <div class="menu-title">Kindie Forest Iced Tea</div>
+                        <div class="menu-price">฿160</div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2026 KINDIE Restaurant. All Rights Reserved.</p>
+        <p>Luxury Indie Dining in the Heart of Nature</p>
     </footer>
 
 </body>
