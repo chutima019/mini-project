@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDIE Restaurant | หน้าหลัก</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #3d2314; /* สีน้ำตาลเข้มจากโลโก้ */
+            --accent-gold: #c5a059;
+            --bg-cream: #f4ece2;    /* สีครีมจากพื้นหลังรูปภาพ */
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--primary-brown);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-area {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: var(--primary-brown);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-brown);
+            margin-left: 25px;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero / Banner */
+        .hero-container {
+            padding: 30px 8%;
+        }
+
+        .main-banner {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070') center/cover;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .main-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Featured Menu Section (จัดแบบบนและล่าง) */
+        .menu-section {
+            padding: 60px 8%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: var(--primary-brown);
+        }
+
+        /* การจัด Layout เมนูแบบบนและล่าง (Vertical List) */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px; /* ระยะห่างระหว่างเมนูบนและล่าง */
+        }
+
+        .menu-card {
+            display: flex;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            align-items: center;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.02);
+        }
+
+        .menu-image {
+            width: 40%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 30px;
+            width: 60%;
+        }
+
+        .menu-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-top: 0;
+            color: var(--primary-brown);
+        }
+
+        .menu-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            background-color: var(--primary-brown);
+            color: var(--bg-cream);
+            margin-top: 50px;
+        }
+
+        /* ปรับแต่งสำหรับมือถือ */
+        @media (max-width: 768px) {
+            .menu-card {
+                flex-direction: column;
+            }
+            .menu-image, .menu-info {
+                width: 100%;
+            }
+            .main-banner h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">KINDIE</div>
+        <div class="nav-links">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">ติดต่อ</a>
+            <a href="#">เมนู</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-container">
+            <div class="main-banner">
+                <h1>Experience KINDIE</h1>
+                <p>รสชาติที่คัดสรรมาเพื่อคุณ</p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2 class="section-title">เมนูแนะนำ</h2>
+            
+            <div class="menu-list">
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=500" alt="Special Dish 1" class="menu-image">
+                    <div class="menu-info">
+                        <h3>Signature Wagyu Steak</h3>
+                        <p class="menu-description">เนื้อวากิวคัดพิเศษ ย่างด้วยระดับความสุกที่คุณเลือกได้ เสิร์ฟพร้อมซอสสูตรลับเฉพาะของร้าน KINDIE</p>
+                        <span class="price-tag">฿1,450</span>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <img src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=500" alt="Special Dish 2" class="menu-image">
+                    <div class="menu-info">
+                        <h3>Truffle Pasta</h3>
+                        <p class="menu-description">พาสต้าเส้นสดคลุกเคล้ากับซอสครีมทรัฟเฟิลเข้มข้น หอมละมุนในทุกคำที่สัมผัส</p>
+                        <span class="price-tag">฿590</span>
+                    </div>
+                </div>
+
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 KINDIE Restaurant. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
