@@ -3,114 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINDIE - Checkout</title>
+    <title>KINDIE - Checkout & History</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; }
+        :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; }
         body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo-img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; }
 
-        .container { padding: 40px 8%; max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+        .container { padding: 40px 8%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; }
+        .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
         
-        /* สรุปรายการอาหาร */
-        .order-summary, .customer-info { background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .item-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
-        .total-row { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold; margin-top: 20px; color: var(--gold-accent); }
+        .type-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .type-btn { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
+        .type-btn.active { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
 
-        /* ฟอร์มกรอกข้อมูล */
-        .form-group { margin-bottom: 15px; text-align: left; }
-        label { display: block; margin-bottom: 5px; font-size: 14px; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .item-row { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
+        .total-row { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: bold; margin-top: 15px; color: var(--gold-accent); margin-bottom: 20px; }
+        .history-item { display: flex; justify-content: space-between; font-size: 13px; color: #777; margin-bottom: 8px; }
+        .status-tag { padding: 2px 8px; border-radius: 10px; font-size: 11px; background: #e8f5e9; color: #2e7d32; }
+
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; font-family: 'Mitr'; }
         
-        .btn-pay { background: var(--dark-brown); color: #fff; border: none; padding: 15px; border-radius: 10px; width: 100%; cursor: pointer; font-size: 1.1rem; margin-top: 20px; transition: 0.3s; }
-        .btn-pay:hover { background: var(--gold-accent); }
+        /* จัดระเบียบปุ่มให้เท่ากัน */
+        .action-buttons { display: flex; gap: 12px; margin-top: 10px; }
+        .btn-pay, .btn-add-more { 
+            flex: 1; /* ทำให้ทั้งสองปุ่มมีความกว้างเท่ากัน */
+            border: none; 
+            padding: 15px 5px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            transition: 0.3s; 
+            font-weight: 500; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+        }
+        .btn-pay { background: var(--dark-brown); color: #fff; }
+        .btn-pay:hover { background: #2a1d15; }
+        .btn-add-more { background: var(--gold-accent); color: white; }
+        .btn-add-more:hover { background: #a07840; }
 
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+        @media (max-width: 850px) { 
+            .container { grid-template-columns: 1fr; }
+            /* บนมือถืออาจจะอยากให้ปุ่มซ้อนกัน หรือคงไว้ตามความเหมาะสม */
+            /* .action-buttons { flex-direction: column; } */
+        }
     </style>
 </head>
 <body>
     <header>
-        <div style="display:flex; align-items:center; gap:12px;"><img src="logo-kindie.png" class="logo-img"><span style="font-family:'Playfair Display'; font-weight:700;">KINDIE</span></div>
-        <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown);">กลับไปเลือกเมนู</a></nav>
+        <div style="display:flex; align-items:center; gap:12px;"><img src="logo-kindie.png" class="logo-img"><span style="font-family:'Playfair Display'; font-weight:700; font-size: 24px;">KINDIE</span></div>
+        <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown);">หน้าเมนู</a></nav>
     </header>
 
     <div class="container">
-        <div class="customer-info">
-            <h2 style="margin-top:0;">ข้อมูลการจัดส่ง</h2>
-            <div class="form-group">
-                <label>ชื่อ-นามสกุล</label>
-                <input type="text" id="custName" placeholder="ระบุชื่อของคุณ">
+        <div class="left-col">
+            <div class="card" id="formArea">
+                <h2 style="margin-top:0; font-family: 'Playfair Display'; color: var(--nature-green);">Customer Info</h2>
+                <div class="type-selector">
+                    <button type="button" class="type-btn active" onclick="setServiceType('dine-in', this)">ทานที่ร้าน</button>
+                    <button type="button" class="type-btn" onclick="setServiceType('take-away', this)">กลับบ้าน</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>ชื่อผู้สั่ง / ผู้จอง</label>
+                    <input type="text" id="custName" placeholder="ระบุชื่อ">
+                </div>
+
+                <div id="dineInField" class="form-group">
+                    <label>หมายเลขโต๊ะ</label>
+                    <input type="number" id="tableNum" placeholder="ระบุเลขโต๊ะ">
+                </div>
+
+                <div id="takeAwayField" style="display: none;">
+                    <div class="form-group">
+                        <label>เบอร์โทรศัพท์</label>
+                        <input type="tel" id="custPhone" placeholder="08X-XXX-XXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>ที่อยู่สำหรับการจัดส่ง</label>
+                        <textarea id="custAddress" rows="3" placeholder="บ้านเลขที่, ซอย, ถนน..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>หมายเหตุถึงร้าน</label>
+                        <input type="text" id="custNote" placeholder="ระบุรายละเอียดเพิ่มเติม">
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>เบอร์โทรศัพท์</label>
-                <input type="tel" id="custPhone" placeholder="08X-XXX-XXXX">
-            </div>
-            <div class="form-group">
-                <label>ที่อยู่ / เลขโต๊ะ</label>
-                <textarea id="custAddress" rows="3" placeholder="ระบุที่อยู่จัดส่งหรือเลขโต๊ะในร้าน"></textarea>
-            </div>
-            <div class="form-group">
-                <label>หมายเหตุถึงร้าน</label>
-                <input type="text" id="custNote" placeholder="เช่น ไม่ใส่ผักชี, ขอช้อนเพิ่ม">
+
+            <div class="card" id="historyCard" style="display: none;">
+                <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px;">🕒 รายการที่สั่งไปแล้ว</h3>
+                <div id="historyItems"></div>
+                <div class="total-row" style="font-size: 1.1rem;">
+                    <span>ยอดสั่งสะสมทั้งสิ้น</span>
+                    <span id="historyTotal">฿0</span>
+                </div>
             </div>
         </div>
 
-        <div class="order-summary">
-            <h2 style="margin-top:0;">สรุปรายการสั่งซื้อ</h2>
-            <div id="cartItems">
+        <div class="right-col">
+            <div class="card">
+                <h2 style="margin-top:0; font-family: 'Playfair Display';">Current Order</h2>
+                <div id="cartItems"></div>
+                <div class="total-row">
+                    <span>ยอดรวมรอบนี้</span>
+                    <span id="grandTotal">฿0</span>
                 </div>
-            <div class="total-row">
-                <span>ยอดรวมสุทธิ</span>
-                <span id="grandTotal">฿0</span>
+                <div class="action-buttons">
+                    <button class="btn-pay" id="payBtn" onclick="processOrder()">ยืนยันการสั่ง</button>
+                    <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
+                </div>
             </div>
-            <button class="btn-pay" onclick="processPayment()">ยืนยันและชำระเงิน</button>
         </div>
     </div>
 
     <script>
-        function loadCart() {
-            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-            const container = document.getElementById('cartItems');
-            let total = 0;
+        let currentServiceType = 'dine-in';
 
-            if (cart.length === 0) {
-                container.innerHTML = "<p style='color:#888;'>ยังไม่มีรายการในตะกร้า</p>";
-                return;
+        function setServiceType(type, btn) {
+            currentServiceType = type;
+            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (type === 'dine-in') {
+                document.getElementById('dineInField').style.display = 'block';
+                document.getElementById('takeAwayField').style.display = 'none';
+            } else {
+                document.getElementById('dineInField').style.display = 'none';
+                document.getElementById('takeAwayField').style.display = 'block';
             }
-
-            container.innerHTML = "";
-            cart.forEach((item, index) => {
-                const row = document.createElement('div');
-                row.className = 'item-row';
-                row.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>฿${item.total}</span>
-                `;
-                container.appendChild(row);
-                total += item.total;
-            });
-
-            document.getElementById('grandTotal').innerText = "฿" + total;
         }
 
-        function processPayment() {
+        function loadPageData() {
+            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
+            const cartContainer = document.getElementById('cartItems');
+            let cartTotal = 0;
+
+            cartContainer.innerHTML = cart.length === 0 ? "<p style='color:#888; text-align:center;'>ยังไม่มีรายการใหม่</p>" : "";
+            cart.forEach((item) => {
+                cartContainer.innerHTML += `<div class="item-row"><span>${item.name}</span><span>฿${item.total.toLocaleString()}</span></div>`;
+                cartTotal += item.total;
+            });
+            document.getElementById('grandTotal').innerText = "฿" + cartTotal.toLocaleString();
+
+            const history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
+            const historyContainer = document.getElementById('historyItems');
+            let historyTotal = 0;
+
+            if (history.length > 0) {
+                document.getElementById('historyCard').style.display = 'block';
+                historyContainer.innerHTML = "";
+                history.forEach((item) => {
+                    historyContainer.innerHTML += `
+                        <div class="history-item">
+                            <span>${item.name}</span>
+                            <span>฿${item.total.toLocaleString()} <span class="status-tag">สั่งแล้ว</span></span>
+                        </div>`;
+                    historyTotal += item.total;
+                });
+                document.getElementById('historyTotal').innerText = "฿" + historyTotal.toLocaleString();
+            }
+        }
+
+        function processOrder() {
             const name = document.getElementById('custName').value;
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
 
             if (!name || cart.length === 0) {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วนและเลือกอาหารก่อนชำระเงิน");
-                return;
+                alert("กรุณาระบุชื่อและเลือกอาหารก่อนครับ"); return;
             }
 
-            alert("ขอบคุณคุณ " + name + " สั่งซื้อเรียบร้อยแล้ว!\nระบบได้รับคำสั่งซื้อของคุณแล้วครับ");
-            
-            // ล้างตะกร้าหลังสั่งเสร็จ
+            if (currentServiceType === 'dine-in' && !document.getElementById('tableNum').value) {
+                alert("กรุณาระบุหมายเลขโต๊ะครับ"); return;
+            }
+
+            if (currentServiceType === 'take-away') {
+                const phone = document.getElementById('custPhone').value;
+                const addr = document.getElementById('custAddress').value;
+                if (!phone || !addr) {
+                    alert("กรุณากรอกเบอร์โทรและที่อยู่ให้ครบถ้วนครับ"); return;
+                }
+            }
+
+            let history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
+            history = history.concat(cart);
+            localStorage.setItem('kindieHistory', JSON.stringify(history));
+
             localStorage.removeItem('kindieCart');
-            window.location.href = 'index.html';
+            alert("ยืนยันออร์เดอร์เรียบร้อยครับ!");
+            loadPageData();
         }
 
-        window.onload = loadCart;
+        window.onload = loadPageData;
     </script>
 </body>
 </html>
