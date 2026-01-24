@@ -7,8 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark-brown: #3d2b1f; /* สีจากโลโก้ */
-            --nature-green: #465c47;
+            --dark-brown: #3d2b1f;
             --soft-cream: #fdfaf5;
             --gold-accent: #b5894b;
         }
@@ -20,7 +19,7 @@
             color: var(--dark-brown);
         }
 
-        /* Header & Logo Section */
+        /* --- Header: โลโก้วงกลมขวา/ซ้ายตามโครงเดิม --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -33,39 +32,14 @@
             z-index: 1000;
         }
 
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .brand-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { height: 60px; width: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-accent); }
+        .shop-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; }
+        
+        .nav-links a { text-decoration: none; color: var(--dark-brown); margin-left: 20px; font-size: 14px; }
 
-        .logo-img {
-            height: 50px; /* ปรับขนาดโลโก้ตามต้องการ */
-            width: auto;
-        }
-
-        .shop-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-brown);
-            margin-left: 20px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--gold-accent); }
-
-        /* Hero Banner (สี่เหลี่ยมแนวนอน - บรรยากาศร้าน) */
-        .hero-banner {
-            padding: 30px 8%;
-        }
-
+        /* --- Hero Banner: สี่เหลี่ยมแนวนอนตามภาพร่าง --- */
+        .hero-banner { padding: 30px 8%; }
         .banner-box {
             width: 100%;
             height: 450px;
@@ -75,36 +49,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: #fff;
             border: 10px solid #fff;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+        .banner-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #fff; margin: 0; }
 
-        .banner-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin: 0;
-            font-style: italic;
-        }
-
-        /* Featured Menu Grid (2x2 ตามวงกลมสีแดง) */
-        .featured-section {
-            padding: 50px 8%;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 22px;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        /* --- Featured Menu: 2x2 ตามวงกลมสีแดงในภาพร่าง --- */
+        .featured-section { padding: 40px 8%; text-align: center; }
+        .section-title { font-size: 22px; margin-bottom: 40px; letter-spacing: 2px; }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* แบ่ง 2 คอลัมน์ */
-            gap: 40px;
+            grid-template-columns: repeat(2, 1fr); /* 2 คอลัมน์ บนและล่าง */
+            gap: 30px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -113,65 +70,49 @@
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
-            transition: 0.4s ease;
+            cursor: pointer;
+            transition: 0.3s;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03);
             border: 1px solid rgba(0,0,0,0.05);
         }
+        .menu-item:hover { transform: translateY(-5px); }
+        .menu-img { width: 100%; height: 280px; object-fit: cover; }
+        .menu-detail { padding: 20px; }
+        .menu-title { font-size: 18px; font-weight: 500; margin-bottom: 8px; }
+        .menu-price { color: var(--gold-accent); font-weight: bold; }
 
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        /* --- Modal: ระบบเลือกเมนู --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.7);
+            align-items: center; justify-content: center;
         }
+        .modal-content {
+            background-color: #fff; padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 380px; text-align: center; position: relative;
+        }
+        .close-btn { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; }
+        .quantity-control { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 20px 0; }
+        .qty-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold-accent); background: none; color: var(--gold-accent); cursor: pointer; }
+        .confirm-btn { background: var(--dark-brown); color: #fff; border: none; padding: 12px 30px; border-radius: 30px; width: 100%; cursor: pointer; }
 
-        .menu-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
+        footer { padding: 40px; text-align: center; font-size: 13px; color: #888; border-top: 1px solid #eee; margin-top: 40px; }
 
-        .menu-detail {
-            padding: 25px;
-        }
-
-        .menu-title {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .menu-price {
-            color: var(--gold-accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        footer {
-            padding: 40px;
-            text-align: center;
-            background: #fff;
-            border-top: 1px solid #eee;
-            font-size: 13px;
-            color: #888;
-        }
-
-        @media (max-width: 768px) {
-            .menu-grid { grid-template-columns: 1fr; }
-            .banner-box { height: 300px; }
-        }
+        @media (max-width: 768px) { .menu-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="brand-container">
-            <img src="logo-kindie.png" alt="KINDIE Logo" class="logo-img">
+            <img src="image/a1.jpg" alt="Logo" class="logo-img">
             <span class="shop-name">KINDIE</span>
         </div>
         <nav class="nav-links">
             <a href="#">หน้าหลัก</a>
-            <a href="#">จองโต๊ะ</a>
-            <a href="#">ติดต่อเรา</a>
             <a href="#">เมนู</a>
+            <a href="#">ติดต่อเรา</a>
+            <a href="#">ชำระเงิน</a>
         </nav>
     </header>
 
@@ -179,44 +120,39 @@
         <section class="hero-banner">
             <div class="banner-box">
                 <div class="banner-content">
-                    <h1>KINDIE </h1>
-                    <p>Welcome To The Restaurant</p>
+                    <h1>KINDIE</h1>
                 </div>
             </div>
         </section>
 
         <section class="featured-section">
             <h2 class="section-title">เมนูแนะนำ</h2>
-            
             <div class="menu-grid">
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800" class="menu-img" alt="Steak">
+                <div class="menu-item" onclick="openModal('Wagyu Beef Steak', 590)">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800" class="menu-img">
                     <div class="menu-detail">
-                        <div class="menu-title">Wagyu Beef Steak with Red Wine Sauce</div>
+                        <div class="menu-title">Wagyu Beef Steak</div>
                         <div class="menu-price">฿590</div>
                     </div>
                 </div>
-
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800" class="menu-img" alt="Salad">
+                <div class="menu-item" onclick="openModal('Salmon Salad', 450)">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800" class="menu-img">
                     <div class="menu-detail">
-                        <div class="menu-title">Avocado & Smoked Salmon Salad</div>
+                        <div class="menu-title">Salmon Salad</div>
                         <div class="menu-price">฿450</div>
                     </div>
                 </div>
-
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=800" class="menu-img" alt="Dessert">
+                <div class="menu-item" onclick="openModal('Chocolate Lava', 280)">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=800" class="menu-img">
                     <div class="menu-detail">
-                        <div class="menu-title">Signature Warm Chocolate Lava</div>
+                        <div class="menu-title">Chocolate Lava Cake</div>
                         <div class="menu-price">฿280</div>
                     </div>
                 </div>
-
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800" class="menu-img" alt="Drink">
+                <div class="menu-item" onclick="openModal('Forest Berry Tea', 160)">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=800" class="menu-img">
                     <div class="menu-detail">
-                        <div class="menu-title">Kindie Forest Iced Tea</div>
+                        <div class="menu-title">Forest Berry Tea</div>
                         <div class="menu-price">฿160</div>
                     </div>
                 </div>
@@ -224,10 +160,46 @@
         </section>
     </main>
 
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">ชื่อเมนู</h2>
+            <div class="quantity-control">
+                <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                <span id="quantityText" style="font-size: 20px; font-weight: bold;">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+            <p>ราคารวม: <span id="totalPriceText" style="color: var(--gold-accent); font-weight: bold;">฿0</span></p>
+            <button class="confirm-btn" onclick="confirmOrder()">เลือกเมนูนี้</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 KINDIE Restaurant. All Rights Reserved.</p>
-        <p>Luxury Indie Dining in the Heart of Nature</p>
     </footer>
 
+    <script>
+        let currentPrice = 0; let currentQty = 1; let currentItemName = "";
+        function openModal(name, price) {
+            currentItemName = name; currentPrice = price; currentQty = 1;
+            document.getElementById('modalTitle').innerText = name;
+            updateDisplay();
+            document.getElementById('orderModal').style.display = "flex";
+        }
+        function closeModal() { document.getElementById('orderModal').style.display = "none"; }
+        function changeQty(amount) {
+            currentQty += amount; if (currentQty < 1) currentQty = 1;
+            updateDisplay();
+        }
+        function updateDisplay() {
+            document.getElementById('quantityText').innerText = currentQty;
+            document.getElementById('totalPriceText').innerText = "฿" + (currentPrice * currentQty);
+        }
+        function confirmOrder() {
+            alert("เลือก " + currentItemName + " จำนวน " + currentQty + " จานแล้ว");
+            closeModal();
+        }
+        window.onclick = function(e) { if (e.target == document.getElementById('orderModal')) closeModal(); }
+    </script>
 </body>
 </html>
