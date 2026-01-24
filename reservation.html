@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDIE - Reserve a Table</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --dark-brown: #3d2b1f; 
+            --soft-cream: #fdfaf5; 
+            --gold-accent: #b5894b; 
+            --nature-green: #465c47;
+        }
+        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); }
+        
+        /* Navigation */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 8%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-accent); }
+        .nav-links a { text-decoration: none; color: var(--dark-brown); margin-left: 20px; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold-accent); }
+
+        /* Reservation Content */
+        .reserve-container { 
+            padding: 60px 8%; max-width: 600px; margin: 0 auto; text-align: center;
+        }
+        .reserve-card { 
+            background: #fff; padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;
+        }
+        .section-title { 
+            font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; 
+            color: var(--nature-green);
+        }
+        .sub-title { margin-bottom: 30px; color: #888; font-weight: 300; }
+
+        /* Form Styling */
+        .form-group { text-align: left; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        input, select { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; 
+            box-sizing: border-box; font-family: 'Mitr', sans-serif; font-size: 15px;
+        }
+        input:focus { outline: none; border-color: var(--gold-accent); }
+
+        .btn-reserve { 
+            background: var(--dark-brown); color: #fff; border: none; padding: 15px 40px; 
+            border-radius: 30px; width: 100%; cursor: pointer; font-size: 1.1rem; 
+            margin-top: 20px; transition: 0.3s;
+        }
+        .btn-reserve:hover { background: var(--gold-accent); transform: translateY(-2px); }
+
+        .nature-icon { font-size: 2rem; color: var(--gold-accent); margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="logo-kindie.png" class="logo-img">
+            <span style="font-family:'Playfair Display'; font-weight:700; font-size: 24px;">KINDIE</span>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="menu.html">เมนูอาหาร</a>
+            <a href="#">จองโต๊ะ</a>
+        </nav>
+    </header>
+
+    <div class="reserve-container">
+        <div class="nature-icon">🌿</div>
+        <h1 class="section-title">Book a Table</h1>
+        <p class="sub-title">สำรองที่นั่งเพื่อสัมผัสบรรยากาศอินดี้ติดธรรมชาติ</p>
+
+        <div class="reserve-card">
+            <form id="reserveForm" onsubmit="handleReserve(event)">
+                <div class="form-group">
+                    <label>วันที่ต้องการจอง</label>
+                    <input type="date" id="reserveDate" required>
+                </div>
+
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label>เวลา</label>
+                        <select id="reserveTime" required>
+                            <option value="11:00">11:00 น.</option>
+                            <option value="12:00">12:00 น.</option>
+                            <option value="17:00">17:00 น.</option>
+                            <option value="18:00">18:00 น.</option>
+                            <option value="19:00">19:00 น.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>จำนวนที่นั่ง</label>
+                        <select id="guests" required>
+                            <option value="1-2">1-2 ท่าน</option>
+                            <option value="3-4">3-4 ท่าน</option>
+                            <option value="5-8">5-8 ท่าน</option>
+                            <option value="9+">มากกว่า 8 ท่าน</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>ชื่อผู้จอง</label>
+                    <input type="text" id="custName" placeholder="ระบุชื่อของคุณ" required>
+                </div>
+
+                <div class="form-group">
+                    <label>เบอร์โทรศัพท์ติดต่อ</label>
+                    <input type="tel" id="custPhone" placeholder="08X-XXX-XXXX" required>
+                </div>
+
+                <button type="submit" class="btn-reserve">ยืนยันการจองที่นั่ง</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ป้องกันไม่ให้เลือกวันที่ย้อนหลัง
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('reserveDate').setAttribute('min', today);
+
+        function handleReserve(event) {
+            event.preventDefault();
+            const name = document.getElementById('custName').value;
+            const date = document.getElementById('reserveDate').value;
+            const time = document.getElementById('reserveTime').value;
+            
+            alert(`ขอบคุณครับคุณ ${name}!\nเราได้รับการจองโต๊ะของคุณในวันที่ ${date} เวลา ${time} เรียบร้อยแล้ว\nแล้วพบกันที่ KINDIE ครับ!`);
+            
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
