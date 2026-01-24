@@ -59,34 +59,35 @@
             align-items: center; justify-content: center; 
         }
         .modal-content { 
-            background: var(--white); padding: 40px; border-radius: 30px; 
+            background: var(--white); padding: 30px 40px; border-radius: 30px; 
             width: 90%; max-width: 450px; position: relative; text-align: center;
+            max-height: 90vh; overflow-y: auto;
         }
         .close-btn { position: absolute; right: 25px; top: 20px; font-size: 28px; color: #bbb; cursor: pointer; }
         
-        .option-group { margin: 25px 0; text-align: left; }
-        .option-group label { display: block; margin-bottom: 10px; font-size: 0.95rem; font-weight: 500; color: #555; }
-        select { 
-            width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #eee; 
-            background: #f9f9f9; font-size: 1rem; margin-bottom: 15px; font-family: inherit;
+        .option-group { margin: 20px 0; text-align: left; }
+        .option-group label { display: block; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; color: #555; }
+        select, input[type="text"] { 
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #eee; 
+            background: #f9f9f9; font-size: 1rem; margin-bottom: 12px; font-family: inherit;
         }
 
         .quantity-control {
             display: flex; justify-content: center; align-items: center;
-            gap: 25px; margin: 20px 0;
+            gap: 25px; margin: 15px 0;
         }
         .qty-btn {
-            width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid var(--gold-accent);
-            background: white; color: var(--gold-accent); font-size: 24px; cursor: pointer;
+            width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--gold-accent);
+            background: white; color: var(--gold-accent); font-size: 22px; cursor: pointer;
             display: flex; align-items: center; justify-content: center; transition: 0.2s;
         }
         .qty-btn:hover { background: var(--gold-accent); color: white; }
-        #orderQtyDisplay { font-size: 22px; font-weight: 600; min-width: 30px; text-align: center; }
+        #orderQtyDisplay { font-size: 20px; font-weight: 600; min-width: 30px; text-align: center; }
 
         .btn-confirm { 
             background: var(--dark-brown); color: var(--white); border: none; 
-            padding: 18px; border-radius: 15px; width: 100%; cursor: pointer; 
-            font-size: 1.1rem; font-weight: 500; transition: 0.3s; 
+            padding: 16px; border-radius: 15px; width: 100%; cursor: pointer; 
+            font-size: 1.1rem; font-weight: 500; transition: 0.3s; margin-top: 10px;
         }
         .btn-confirm:hover { background: var(--gold-accent); }
 
@@ -115,16 +116,33 @@
         </nav>
     </header>
 
+<div class="container">
+        <div class="cat-title">🍚 ข้าว (Rice Selection)</div>
+        <div class="menu-list">
+            <div class="menu-item" onclick="openOrder('ข้าวเปล่า', 15, 'none')">
+                <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?w=300">
+                <div class="item-info"><h3>ข้าวเปล่า (หอมมะลิ)</h3><span class="item-price">฿15</span></div>
+            </div>
+            <div class="menu-item" onclick="openOrder('ข้าวไรซ์เบอร์รี่', 25, 'none')">
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300">
+                <div class="item-info"><h3>ข้าวไรซ์เบอร์รี่</h3><span class="item-price">฿25</span></div>
+            </div>
+            <div class="menu-item" onclick="openOrder('ข้าวกล้อง', 25, 'none')">
+                <img src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=300">
+                <div class="item-info"><h3>ข้าวกล้อง</h3><span class="item-price">฿25</span></div>
+            </div>
+        </div>
+
     <div class="container">
         <div class="cat-title">🍽️ อาหารจานหลัก (Main Courses)</div>
         <div class="menu-list">
             <div class="menu-item" onclick="openOrder('ข้าวกะเพราไข่ดาวลาวา', 95, 'meat_selection')">
                 <img src="https://images.unsplash.com/photo-1562607394-5abc0c346abb?w=300">
-                <div class="item-info"><h3>ข้าวกะเพราเนื้อสับไข่ดาวลาวา</h3><span class="item-price">฿95</span></div>
+                <div class="item-info"><h3>ข้าวกะเพรา</h3><span class="item-price">฿65</span></div>
             </div>
             <div class="menu-item" onclick="openOrder('ผัดไทยกุ้งแม่น้ำ', 220, 'none')">
                 <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=300">
-                <div class="item-info"><h3>ผัดไทยกุ้งแม่น้ำ (XL)</h3><span class="item-price">฿220</span></div>
+                <div class="item-info"><h3>ผัดไทย (XL)</h3><span class="item-price">฿90</span></div>
             </div>
             <div class="menu-item" onclick="openOrder('ข้าวผัด', 150, 'meat_selection')">
                 <img src="https://images.unsplash.com/photo-1598214817158-1961f637770e?w=300">
@@ -132,11 +150,11 @@
             </div>
             <div class="menu-item" onclick="openOrder('เส้นหมี่แกงปูใบชะพลู', 280, 'none')">
                 <img src="https://images.unsplash.com/photo-1547928501-a266341d2f97?w=300">
-                <div class="item-info"><h3>เส้นหมี่แกงปูใบชะพลู</h3><span class="item-price">฿280</span></div>
+                <div class="item-info"><h3>กุ้งอบวุ่นเส้น</h3><span class="item-price">฿180</span></div>
             </div>
             <div class="menu-item" onclick="openOrder('สเต็กเนื้อริบอายย่างซอสไวน์แดง', 380, 'steak')">
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300">
-                <div class="item-info"><h3>สเต็กเนื้อริบอายย่างซอสไวน์แดง</h3><span class="item-price">฿380</span></div>
+                <div class="item-info"><h3>ตำถาดซีฟู้ด</h3><span class="item-price">฿380</span></div>
             </div>
         </div>
 
@@ -154,20 +172,20 @@
             <div class="menu-item" onclick="openOrder('ข้าวเหนียวมะม่วง', 160, 'none')"><img src="https://images.unsplash.com/photo-1621506821199-a996dfec284c?w=300"><div class="item-info"><h3>ข้าวเหนียวมะม่วงพรีเมียม</h3><span class="item-price">฿160</span></div></div>
             <div class="menu-item" onclick="openOrder('ทับทิมกรอบ', 75, 'none')"><img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300"><div class="item-info"><h3>ทับทิมกรอบน้ำกะทิ</h3><span class="item-price">฿75</span></div></div>
             <div class="menu-item" onclick="openOrder('บัวลอย', 85, 'bualoy_opt')"><img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=300"><div class="item-info"><h3>บัวลอย (เลือกประเภท)</h3><span class="item-price">฿85</span></div></div>
-            <div class="menu-item" onclick="openOrder('เค้กพรีเมียม', 125, 'cake_opt')"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300"><div class="item-info"><h3>เค้ก (เลือกรสชาติ)</h3><span class="item-price">฿125</span></div></div>
+            <div class="menu-item" onclick="openOrder('เค้กพรีเมียม', 125, 'cake_opt')"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300"><div class="item-info"><h3>เค้กพรีเมียม (เลือกรสชาติ)</h3><span class="item-price">฿125</span></div></div>
             <div class="menu-item" onclick="openOrder('บิงซูเกล็ดหิมะ', 220, 'bingsu_opt')"><img src="https://images.unsplash.com/photo-1621506821199-a996dfec284c?w=300"><div class="item-info"><h3>บิงซูเกล็ดหิมะ (Bingsu)</h3><span class="item-price">฿220</span></div></div>
             <div class="menu-item" onclick="openOrder('น้ำแข็งใสโบราณ', 65, 'shaved_ice_opt')"><img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=300"><div class="item-info"><h3>น้ำแข็งใสโบราณ (Thai Style)</h3><span class="item-price">฿65</span></div></div>
         </div>
 
         <div class="cat-title">☕ เครื่องดื่ม (Drinks)</div>
         <div class="menu-list">
-            <div class="menu-item" onclick="openOrder('อเมริกาโน่', 55, 'drink')"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300"><div class="item-info"><h3>อเมริกาโน่ / ลาเต้</h3><span class="item-price">฿55</span></div></div>
-            <div class="menu-item" onclick="openOrder('ช็อกโกแลตเข้มข้น', 60, 'drink')"><img src="https://images.unsplash.com/photo-1544787210-2211d7c929c7?w=300"><div class="item-info"><h3>ช็อกโกแลตเข้มข้น</h3><span class="item-price">฿60</span></div></div>
-            <div class="menu-item" onclick="openOrder('ชาไทยสูตรดั้งเดิม', 50, 'drink')"><img src="https://images.unsplash.com/photo-1594631252845-29fc4586d517?w=300"><div class="item-info"><h3>ชาไทยสูตรดั้งเดิม</h3><span class="item-price">฿50</span></div></div>
-            <div class="menu-item" onclick="openOrder('มัทฉะกรีนที', 70, 'drink')"><img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=300"><div class="item-info"><h3>มัทฉะกรีนที</h3><span class="item-price">฿70</span></div></div>
-            <div class="menu-item" onclick="openOrder('สมูทตี้มะม่วงโยเกิร์ต', 110, 'none')"><img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=300"><div class="item-info"><h3>สมูทตี้มะม่วงโยเกิร์ต</h3><span class="item-price">฿110</span></div></div>
-            <div class="menu-item" onclick="openOrder('ลิ้นจี่กุหลาบโซดา', 80, 'none')"><img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300"><div class="item-info"><h3>ลิ้นจี่กุหลาบโซดา</h3><span class="item-price">฿80</span></div></div>
-            <div class="menu-item" onclick="openOrder('คาปูชิโน่คาราเมล', 65, 'drink')"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300"><div class="item-info"><h3>คาปูชิโน่คาราเมล</h3><span class="item-price">฿65</span></div></div>
+            <div class="menu-item" onclick="openOrder('อเมริกาโน่', 55, 'drink')"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300"><div class="item-info"><h3>อเมริกาโน่ / ลาเต้</h3><span class="item-price">เริ่มต้น ฿55</span></div></div>
+            <div class="menu-item" onclick="openOrder('ช็อกโกแลตเข้มข้น', 60, 'drink')"><img src="https://images.unsplash.com/photo-1544787210-2211d7c929c7?w=300"><div class="item-info"><h3>ช็อกโกแลตเข้มข้น</h3><span class="item-price">เริ่มต้น ฿60</span></div></div>
+            <div class="menu-item" onclick="openOrder('ชาไทยสูตรดั้งเดิม', 50, 'drink')"><img src="https://images.unsplash.com/photo-1594631252845-29fc4586d517?w=300"><div class="item-info"><h3>ชาไทยสูตรดั้งเดิม</h3><span class="item-price">เริ่มต้น ฿50</span></div></div>
+            <div class="menu-item" onclick="openOrder('มัทฉะกรีนที', 70, 'drink')"><img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=300"><div class="item-info"><h3>มัทฉะกรีนที</h3><span class="item-price">เริ่มต้น ฿70</span></div></div>
+            <div class="menu-item" onclick="openOrder('สมูทตี้มะม่วงโยเกิร์ต', 110, 'none')"><img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=300"><div class="item-info"><h3>สมูทตี้มะม่วงโยเกิร์ต (ปั่น)</h3><span class="item-price">฿110</span></div></div>
+            <div class="menu-item" onclick="openOrder('ลิ้นจี่กุหลาบโซดา', 80, 'none')"><img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300"><div class="item-info"><h3>ลิ้นจี่กุหลาบโซดา (เย็น)</h3><span class="item-price">฿80</span></div></div>
+            <div class="menu-item" onclick="openOrder('คาปูชิโน่คาราเมล', 65, 'drink')"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300"><div class="item-info"><h3>คาปูชิโน่คาราเมล</h3><span class="item-price">เริ่มต้น ฿65</span></div></div>
             <div class="menu-item" onclick="openOrder('น้ำแตงโมปั่น', 65, 'none')"><img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=300"><div class="item-info"><h3>น้ำแตงโมปั่น</h3><span class="item-price">฿65</span></div></div>
         </div>
     </div>
@@ -254,6 +272,11 @@
                         <option value="0">ร้อน (+0.-)</option><option value="10">เย็น (+10.-)</option><option value="25">ปั่น (+25.-)</option>
                     </select>
                 </div>
+
+                <div id="noteOpt">
+                    <label>หมายเหตุเพิ่มเติม (ถ้ามี)</label>
+                    <input type="text" id="itemNote" placeholder="เช่น ไม่เผ็ด, หวานน้อย, แพ้ถั่ว...">
+                </div>
             </div>
             
             <p style="font-size: 1.6rem; font-weight: bold; color: var(--gold-accent);">ยอดรวม: ฿<span id="totalPrice">0</span></p>
@@ -270,6 +293,7 @@
             currentItem = name; basePrice = price; currentType = type; currentQty = 1;
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('orderQtyDisplay').innerText = 1;
+            document.getElementById('itemNote').value = ""; // ล้างค่าหมายเหตุเก่า
             
             // ปิดทุก Option ก่อนเปิดตัวที่เกี่ยวข้อง
             const optIds = ['meatOpt', 'steakOpt', 'cakeOpt', 'bualoyOpt', 'bingsuOpt', 'shavedIceOpt', 'drinkOpt'];
@@ -302,14 +326,21 @@
         function addToCart() {
             let cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
             let add = currentType === 'drink' ? parseInt(document.getElementById('drinkType').value) : 0;
+            let note = document.getElementById('itemNote').value.trim();
             let label = currentItem;
 
+            // รวมข้อมูลตัวเลือกเสริม
             if (currentType === 'meat_selection') label += " (" + document.getElementById('meatSelection').value + ")";
             if (currentType === 'cake_opt') label += " [รส " + document.getElementById('cakeType').value + "]";
             if (currentType === 'bualoy_opt') label += " [" + document.getElementById('bualoyType').value + "]";
             if (currentType === 'bingsu_opt') label = "บิงซู " + document.getElementById('bingsuFlavor').value + " (" + document.getElementById('bingsuTopping').value + ")";
             if (currentType === 'shaved_ice_opt') label = "น้ำแข็งใส " + document.getElementById('syrupColor').value + " (" + document.getElementById('thaiTopping').value + ")";
             if (currentType === 'drink') label += " [" + document.getElementById('drinkType').options[document.getElementById('drinkType').selectedIndex].text.split(' ')[0] + "]";
+
+            // เพิ่มหมายเหตุต่อท้ายถ้ามีการกรอกมา
+            if (note !== "") {
+                label += " *หมายเหตุ: " + note;
+            }
 
             cart.push({ name: label, total: (basePrice + add) * currentQty });
             localStorage.setItem('kindieCart', JSON.stringify(cart));
