@@ -15,45 +15,42 @@
         .card { background: #fff; padding: 25px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
         
         .type-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .type-btn { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
+        .type-btn { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; font-size: 14px; }
         .type-btn.active { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
+
+        .zone-selector { display: flex; gap: 10px; margin: 15px 0; }
+        .zone-btn { flex: 1; padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; transition: 0.2s; font-family: 'Mitr'; font-size: 13px; }
+        .zone-btn.active { border-color: var(--nature-green); color: var(--nature-green); background: #f0f4f0; font-weight: 500; }
+
+        .table-grid { display: none; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; padding: 15px; background: #fdfdfd; border-radius: 12px; border: 1px dashed #ddd; }
+        .table-item { padding: 10px; border: 1px solid #eee; border-radius: 8px; text-align: center; cursor: pointer; font-size: 13px; background: #fff; transition: 0.2s; }
+        .table-item:hover { border-color: var(--gold-accent); }
+        .table-item.selected { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
 
         .item-row { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
         .total-row { display: flex; justify-content: space-between; font-size: 1.4rem; font-weight: bold; margin-top: 15px; color: var(--gold-accent); margin-bottom: 20px; }
-        .history-item { display: flex; justify-content: space-between; font-size: 13px; color: #777; margin-bottom: 8px; }
-        .status-tag { padding: 2px 8px; border-radius: 10px; font-size: 11px; background: #e8f5e9; color: #2e7d32; }
+        
+        .history-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
+        .history-main { display: flex; justify-content: space-between; font-size: 14px; font-weight: 500; }
+        .history-meta { font-size: 11px; color: #888; margin-top: 4px; display: flex; gap: 10px; }
+        
+        .status-tag { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; background: #f0f0f0; color: #666; transition: 0.3s; }
+        .status-order { background: #e3f2fd; color: #1976d2; }
+        .status-cooking { background: #fff3e0; color: #f57c00; }
+        .status-ready { background: #e8f5e9; color: #2e7d32; }
+        .status-shipping { background: #f3e5f5; color: #7b1fa2; }
+        .status-done { background: #e0e0e0; color: #424242; }
 
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; }
         input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; font-family: 'Mitr'; }
         
-        /* จัดระเบียบปุ่มให้เท่ากัน */
         .action-buttons { display: flex; gap: 12px; margin-top: 10px; }
-        .btn-pay, .btn-add-more { 
-            flex: 1; /* ทำให้ทั้งสองปุ่มมีความกว้างเท่ากัน */
-            border: none; 
-            padding: 15px 5px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-size: 1rem; 
-            transition: 0.3s; 
-            font-weight: 500; 
-            text-decoration: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            text-align: center;
-        }
+        .btn-pay, .btn-add-more { flex: 1; border: none; padding: 15px 5px; border-radius: 12px; cursor: pointer; font-size: 1rem; transition: 0.3s; font-weight: 500; text-decoration: none; display: flex; align-items: center; justify-content: center; text-align: center; }
         .btn-pay { background: var(--dark-brown); color: #fff; }
-        .btn-pay:hover { background: #2a1d15; }
         .btn-add-more { background: var(--gold-accent); color: white; }
-        .btn-add-more:hover { background: #a07840; }
 
-        @media (max-width: 850px) { 
-            .container { grid-template-columns: 1fr; }
-            /* บนมือถืออาจจะอยากให้ปุ่มซ้อนกัน หรือคงไว้ตามความเหมาะสม */
-            /* .action-buttons { flex-direction: column; } */
-        }
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } .table-grid { grid-template-columns: repeat(4, 1fr); } }
     </style>
 </head>
 <body>
@@ -72,38 +69,32 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>ชื่อผู้สั่ง / ผู้จอง</label>
-                    <input type="text" id="custName" placeholder="ระบุชื่อ">
+                    <label>ชื่อผู้สั่ง (ระบุชื่อเดิมเพื่อดูประวัติ)</label>
+                    <input type="text" id="custName" placeholder="กรุณาระบุชื่อของคุณ" oninput="updateHistoryUI()">
                 </div>
 
-                <div id="dineInField" class="form-group">
-                    <label>หมายเลขโต๊ะ</label>
-                    <input type="number" id="tableNum" placeholder="ระบุเลขโต๊ะ">
+                <div id="dineInField">
+                    <label>เลือกโซนที่นั่ง</label>
+                    <div class="zone-selector">
+                        <button type="button" class="zone-btn" id="btnIndoor" onclick="toggleZone('indoor')">📍 ในร้าน (A)</button>
+                        <button type="button" class="zone-btn" id="btnOutdoor" onclick="toggleZone('outdoor')">🌳 นอกร้าน (B)</button>
+                    </div>
+                    <div id="indoorGrid" class="table-grid"></div>
+                    <div id="outdoorGrid" class="table-grid"></div>
+                    <input type="hidden" id="selectedTable">
                 </div>
 
                 <div id="takeAwayField" style="display: none;">
-                    <div class="form-group">
-                        <label>เบอร์โทรศัพท์</label>
-                        <input type="tel" id="custPhone" placeholder="08X-XXX-XXXX">
-                    </div>
-                    <div class="form-group">
-                        <label>ที่อยู่สำหรับการจัดส่ง</label>
-                        <textarea id="custAddress" rows="3" placeholder="บ้านเลขที่, ซอย, ถนน..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>หมายเหตุถึงร้าน</label>
-                        <input type="text" id="custNote" placeholder="ระบุรายละเอียดเพิ่มเติม">
-                    </div>
+                    <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="custPhone" placeholder="08X-XXX-XXXX"></div>
+                    <div class="form-group"><label>ที่อยู่สำหรับการจัดส่ง</label><textarea id="custAddress" rows="3" placeholder="ระบุที่อยู่..."></textarea></div>
+                    <div class="form-group"><label>หมายเหตุ</label><input type="text" id="custNote" placeholder="รายละเอียดเพิ่มเติม"></div>
                 </div>
             </div>
 
             <div class="card" id="historyCard" style="display: none;">
-                <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px;">🕒 รายการที่สั่งไปแล้ว</h3>
+                <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px;">🕒 ประวัติการสั่งซื้อของท่าน</h3>
                 <div id="historyItems"></div>
-                <div class="total-row" style="font-size: 1.1rem;">
-                    <span>ยอดสั่งสะสมทั้งสิ้น</span>
-                    <span id="historyTotal">฿0</span>
-                </div>
+                <div class="total-row" style="font-size: 1.1rem;"><span>ยอดสั่งสะสม</span><span id="historyTotal">฿0</span></div>
             </div>
         </div>
 
@@ -111,12 +102,9 @@
             <div class="card">
                 <h2 style="margin-top:0; font-family: 'Playfair Display';">Current Order</h2>
                 <div id="cartItems"></div>
-                <div class="total-row">
-                    <span>ยอดรวมรอบนี้</span>
-                    <span id="grandTotal">฿0</span>
-                </div>
+                <div class="total-row"><span>ยอดรวมรอบนี้</span><span id="grandTotal">฿0</span></div>
                 <div class="action-buttons">
-                    <button class="btn-pay" id="payBtn" onclick="processOrder()">ยืนยันการสั่ง</button>
+                    <button class="btn-pay" onclick="processOrder()">ยืนยันการสั่ง</button>
                     <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
                 </div>
             </div>
@@ -126,81 +114,152 @@
     <script>
         let currentServiceType = 'dine-in';
 
+        function renderTables() {
+            const indoor = document.getElementById('indoorGrid');
+            const outdoor = document.getElementById('outdoorGrid');
+            for (let i = 1; i <= 8; i++) {
+                const id = `A-${i.toString().padStart(2, '0')}`;
+                indoor.innerHTML += `<div class="table-item" onclick="selectTable('${id}', this)">${id}</div>`;
+            }
+            for (let i = 1; i <= 12; i++) {
+                const id = `B-${i.toString().padStart(2, '0')}`;
+                outdoor.innerHTML += `<div class="table-item" onclick="selectTable('${id}', this)">${id}</div>`;
+            }
+        }
+
+        function toggleZone(zone) {
+            document.getElementById('indoorGrid').style.display = zone === 'indoor' ? 'grid' : 'none';
+            document.getElementById('outdoorGrid').style.display = zone === 'outdoor' ? 'grid' : 'none';
+            document.getElementById('btnIndoor').classList.toggle('active', zone === 'indoor');
+            document.getElementById('btnOutdoor').classList.toggle('active', zone === 'outdoor');
+        }
+
+        function selectTable(id, el) {
+            document.querySelectorAll('.table-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('selectedTable').value = id;
+        }
+
         function setServiceType(type, btn) {
             currentServiceType = type;
             document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            if (type === 'dine-in') {
-                document.getElementById('dineInField').style.display = 'block';
-                document.getElementById('takeAwayField').style.display = 'none';
-            } else {
-                document.getElementById('dineInField').style.display = 'none';
-                document.getElementById('takeAwayField').style.display = 'block';
-            }
+            document.getElementById('dineInField').style.display = type === 'dine-in' ? 'block' : 'none';
+            document.getElementById('takeAwayField').style.display = type === 'take-away' ? 'block' : 'none';
         }
 
         function loadPageData() {
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-            const cartContainer = document.getElementById('cartItems');
-            let cartTotal = 0;
-
-            cartContainer.innerHTML = cart.length === 0 ? "<p style='color:#888; text-align:center;'>ยังไม่มีรายการใหม่</p>" : "";
-            cart.forEach((item) => {
-                cartContainer.innerHTML += `<div class="item-row"><span>${item.name}</span><span>฿${item.total.toLocaleString()}</span></div>`;
-                cartTotal += item.total;
+            const container = document.getElementById('cartItems');
+            let total = 0;
+            container.innerHTML = cart.length === 0 ? "<p style='color:#888; text-align:center;'>ยังไม่มีรายการใหม่</p>" : "";
+            cart.forEach(i => {
+                container.innerHTML += `<div class="item-row"><span>${i.name}</span><span>฿${i.total.toLocaleString()}</span></div>`;
+                total += i.total;
             });
-            document.getElementById('grandTotal').innerText = "฿" + cartTotal.toLocaleString();
+            document.getElementById('grandTotal').innerText = "฿" + total.toLocaleString();
+            updateHistoryUI();
+        }
 
+        function updateHistoryUI() {
+            const currentName = document.getElementById('custName').value.trim();
             const history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
-            const historyContainer = document.getElementById('historyItems');
+            const container = document.getElementById('historyItems');
             let historyTotal = 0;
 
-            if (history.length > 0) {
+            const myHistory = history.filter(item => item.customer === currentName);
+
+            if (currentName !== "" && myHistory.length > 0) {
                 document.getElementById('historyCard').style.display = 'block';
-                historyContainer.innerHTML = "";
-                history.forEach((item) => {
-                    historyContainer.innerHTML += `
+                container.innerHTML = "";
+                myHistory.forEach(i => {
+                    let sClass = "status-order";
+                    if (i.status.includes("ปรุง")) sClass = "status-cooking";
+                    if (i.status.includes("พร้อม") || i.status.includes("เสร็จ")) sClass = "status-ready";
+                    if (i.status.includes("กำลังไป")) sClass = "status-shipping";
+                    if (i.status.includes("รับแล้ว")) sClass = "status-done";
+
+                    const tableInfo = i.type === 'dine-in' ? `โต๊ะ: ${i.tableNumber}` : "สั่งกลับบ้าน";
+
+                    container.innerHTML += `
                         <div class="history-item">
-                            <span>${item.name}</span>
-                            <span>฿${item.total.toLocaleString()} <span class="status-tag">สั่งแล้ว</span></span>
+                            <div class="history-main"><span>${i.name}</span><span>฿${i.total.toLocaleString()}</span></div>
+                            <div class="history-meta">
+                                <span>📅 ${i.date}</span>
+                                <span>⏰ ${i.time}</span>
+                                <span>📍 ${tableInfo}</span>
+                            </div>
+                            <div style="margin-top:8px;">
+                                <span class="status-tag ${sClass}">${i.status}</span> 
+                            </div>
                         </div>`;
-                    historyTotal += item.total;
+                    historyTotal += i.total;
                 });
                 document.getElementById('historyTotal').innerText = "฿" + historyTotal.toLocaleString();
+            } else {
+                document.getElementById('historyCard').style.display = 'none';
             }
         }
 
         function processOrder() {
-            const name = document.getElementById('custName').value;
+            const name = document.getElementById('custName').value.trim();
+            const table = document.getElementById('selectedTable').value;
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-
-            if (!name || cart.length === 0) {
-                alert("กรุณาระบุชื่อและเลือกอาหารก่อนครับ"); return;
-            }
-
-            if (currentServiceType === 'dine-in' && !document.getElementById('tableNum').value) {
-                alert("กรุณาระบุหมายเลขโต๊ะครับ"); return;
-            }
-
-            if (currentServiceType === 'take-away') {
-                const phone = document.getElementById('custPhone').value;
-                const addr = document.getElementById('custAddress').value;
-                if (!phone || !addr) {
-                    alert("กรุณากรอกเบอร์โทรและที่อยู่ให้ครบถ้วนครับ"); return;
-                }
-            }
+            if (!name || cart.length === 0) { alert("กรุณาระบุชื่อและเลือกอาหาร"); return; }
+            if (currentServiceType === 'dine-in' && !table) { alert("กรุณาเลือกโซนและโต๊ะ"); return; }
+            
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('th-TH');
+            const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+            
+            const orderWithStatus = cart.map(i => ({ 
+                ...i, 
+                customer: name, 
+                status: "รับออเดอร์แล้ว", 
+                type: currentServiceType, 
+                tableNumber: table,
+                date: dateStr,
+                time: timeStr,
+                timestamp: Date.now()
+            }));
 
             let history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
-            history = history.concat(cart);
+            history = history.concat(orderWithStatus);
             localStorage.setItem('kindieHistory', JSON.stringify(history));
-
             localStorage.removeItem('kindieCart');
-            alert("ยืนยันออร์เดอร์เรียบร้อยครับ!");
+            
+            alert("สั่งอาหารเรียบร้อย! ขอบคุณคุณ " + name);
             loadPageData();
+            simulateStatusChange(name);
         }
 
-        window.onload = loadPageData;
+        function simulateStatusChange(targetName) {
+            setTimeout(() => { updateStatusByCustomer(targetName, "รับออเดอร์แล้ว", "กำลังปรุง"); }, 5000);
+            setTimeout(() => { updateStatusByCustomer(targetName, "กำลังปรุง", "ready"); }, 12000);
+            setTimeout(() => { updateStatusByCustomer(targetName, "เสร็จแล้ว", "กำลังไป"); }, 18000);
+            setTimeout(() => { updateStatusByCustomer(targetName, "กำลังไป", "ลูกค้ารับแล้ว"); }, 25000);
+        }
+
+        function updateStatusByCustomer(custName, oldS, newS) {
+            let history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
+            let changed = false;
+            history.forEach(i => {
+                if (i.customer === custName && i.status === oldS) {
+                    if (newS === "ready") {
+                        i.status = (i.type === 'dine-in') ? "พร้อมเสิร์ฟ" : "เสร็จแล้ว";
+                    } else {
+                        i.status = newS;
+                    }
+                    changed = true;
+                }
+            });
+            if (changed) {
+                localStorage.setItem('kindieHistory', JSON.stringify(history));
+                updateHistoryUI();
+            }
+        }
+
+        window.onload = () => { renderTables(); loadPageData(); };
     </script>
 </body>
 </html>
