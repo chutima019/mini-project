@@ -7,13 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --white: #ffffff; }
-        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); }
+        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; }
         
         header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            padding: 20px 8%; 
+            padding: 15px 8%; 
             background: var(--white); 
             position: sticky; 
             top: 0; 
@@ -24,69 +24,81 @@
         .brand-container { 
             display: flex; 
             align-items: center; 
-            gap: 15px;
+            gap: 12px;
         }
 
         .logo-img { 
-            height: 60px; 
-            width: 60px; 
+            height: 50px; 
+            width: 50px; 
             border-radius: 50%; 
             object-fit: cover; 
             border: 2px solid var(--gold-accent);
-            display: block;
         }
 
         .shop-name { 
             font-family: 'Playfair Display', serif; 
-            font-size: 28px; 
+            font-size: 24px; 
             font-weight: 700; 
             line-height: 1; 
             margin: 0;
         }
 
-        .nav-links a { text-decoration: none; color: var(--dark-brown); margin-left: 25px; font-size: 15px; transition: 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--dark-brown); margin-left: 15px; font-size: 14px; transition: 0.3s; }
         .nav-links a:hover { color: var(--gold-accent); }
 
-        /* =========================================
-           ส่วนที่แก้ไข: เปลี่ยนรูปภาพพื้นหลัง Banner
-           ========================================= */
-        .hero-banner { padding: 40px 8%; }
+        .hero-banner { padding: 20px 5%; }
         
         .banner-box { 
             width: 100%; 
-            height: 450px; 
-            border-radius: 30px; 
-            /* แก้ไขลิงก์รูปภาพเป็นชื่อไฟล์ที่คุณระบุ */
+            height: 400px; 
+            border-radius: 25px; 
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)), 
                         url('image/Gemini_Generated_Image_es0zc4es0zc4es0z.png') center/cover; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            border: 10px solid #fff; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            border: 5px solid #fff; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
         }
 
         .banner-content h1 { 
             font-family: 'Playfair Display', serif; 
-            font-size: 4rem; 
+            font-size: 3.5rem; 
             color: #fff; 
             margin: 0; 
             font-style: italic; 
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
         }
 
-        .featured-section { padding: 60px 8%; text-align: center; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 50px; }
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto; }
-        .menu-item { background: var(--white); border-radius: 25px; overflow: hidden; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .menu-item:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .menu-img { width: 100%; height: 300px; object-fit: cover; }
-        .menu-detail { padding: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .menu-price { color: var(--gold-accent); font-weight: 600; font-size: 20px; background: rgba(181, 137, 75, 0.1); padding: 5px 15px; border-radius: 12px; }
+        .featured-section { padding: 40px 5%; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 30px; }
         
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+        }
+        
+        .menu-item { background: var(--white); border-radius: 20px; overflow: hidden; cursor: pointer; transition: 0.4s; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .menu-item:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .menu-img { width: 100%; height: 250px; object-fit: cover; }
+        .menu-detail { padding: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+        .menu-price { color: var(--gold-accent); font-weight: 600; font-size: 18px; background: rgba(181, 137, 75, 0.1); padding: 4px 12px; border-radius: 10px; }
+        
+        /* ปรับปรุงสำหรับมือถือ (Responsive) */
         @media (max-width: 768px) {
-            .menu-grid { grid-template-columns: 1fr; }
-            header { padding: 15px 5%; }
-            .banner-content h1 { font-size: 2.5rem; }
+            header { padding: 10px 4%; flex-direction: column; gap: 10px; }
+            .nav-links { margin-bottom: 5px; }
+            .nav-links a { margin: 0 7px; font-size: 12px; }
+            
+            .banner-box { height: 250px; border-radius: 15px; }
+            .banner-content h1 { font-size: 2.2rem; }
+            
+            .menu-grid { grid-template-columns: 1fr; } /* เปลี่ยนเป็นคอลัมน์เดียวในมือถือ */
+            .menu-img { height: 200px; }
+            .section-title { font-size: 24px; }
         }
     </style>
 </head>
