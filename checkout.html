@@ -8,66 +8,43 @@
     <style>
         :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; --danger: #e74c3c; }
         body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; }
-        
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo-img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
-
         .container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
         .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
         .type-selector { display: flex; gap: 8px; margin-bottom: 20px; }
         .type-btn { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; font-size: 14px; }
         .type-btn.active { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
-
-        .history-card-item { background: #fdfdfd; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 15px; position: relative; }
-        .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
-        .order-item-list { font-size: 13px; color: #555; padding-left: 5px; line-height: 1.6; }
+        .history-card-item { background: #fdfdfd; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 15px; }
         .status-tag { padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-        
         .status-cooking { background: #fff3e0; color: #f57c00; }
         .status-ready { background: #e8f5e9; color: #2e7d32; }
         .status-order { background: #e3f2fd; color: #1976d2; }
         .status-done { background: #eeeeee; color: #666666; }
-
         .item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 8px; font-size: 14px; }
         .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-top: 15px; color: var(--gold-accent); margin-bottom: 20px; }
-        
         .form-group { margin-bottom: 15px; position: relative; }
         label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
         input, select, textarea { width: 100%; padding: 10px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; font-family: 'Mitr'; font-size: 14px; }
-        
         .phone-error { color: var(--danger); font-size: 11px; margin-top: 5px; display: none; }
-
         .action-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
         .btn-pay, .btn-add-more { border: none; padding: 14px; border-radius: 12px; cursor: pointer; font-size: 15px; transition: 0.3s; font-weight: 500; display: flex; align-items: center; justify-content: center; text-decoration: none; text-align: center; }
         .btn-pay { background: var(--dark-brown); color: #fff; }
         .btn-pay:disabled { background: #ccc; cursor: not-allowed; }
         .btn-add-more { background: var(--gold-accent); color: white; }
-
         .table-grid { display: none; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
         .table-item { border: 1px solid #eee; padding: 10px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 12px; background: #fff; }
-
-        /* ปรับปรุงขนาดสำหรับมือถือ (Responsive) */
-        @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; padding: 10px 4%; }
-            header { padding: 10px 4%; }
-            .shop-title { font-size: 20px !important; }
-            .card { padding: 15px; }
-            .banner-content h1 { font-size: 2.5rem; }
-            .total-row { font-size: 1.1rem; }
-        }
-
-        @media (max-width: 400px) {
-            .table-grid { grid-template-columns: repeat(3, 1fr); } /* จอเล็กมากให้เหลือ 3 คอลัมน์ */
-            .type-btn { font-size: 12px; }
-        }
+        #paymentModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+        .qr-card { background: #fff; padding: 25px; border-radius: 25px; text-align: center; width: 90%; max-width: 350px; }
+        .qr-img { width: 200px; height: 200px; margin: 15px 0; border: 1px solid #eee; }
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <header>
         <div style="display:flex; align-items:center; gap:10px;">
             <img src="image/a1.jpg" class="logo-img">
-            <span class="shop-title" style="font-family:'Playfair Display'; font-weight:700; font-size: 22px;">KINDIE</span>
+            <span style="font-family:'Playfair Display'; font-weight:700; font-size: 22px;">KINDIE</span>
         </div>
         <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown); font-size: 13px;">หน้าเมนู</a></nav>
     </header>
@@ -77,20 +54,18 @@
             <div class="card">
                 <h2 style="margin-top:0; font-family: 'Playfair Display'; color: var(--nature-green); font-size: 1.3rem;">Customer Info</h2>
                 <div class="type-selector">
-                    <button type="button" class="type-btn active" onclick="setServiceType('dine-in', this)">ทานที่ร้าน</button>
-                    <button type="button" class="type-btn" onclick="setServiceType('take-away', this)">กลับบ้าน</button>
+                    <button type="button" class="type-btn active" id="typeDineIn" onclick="setServiceType('dine-in', this)">ทานที่ร้าน</button>
+                    <button type="button" class="type-btn" id="typeTakeAway" onclick="setServiceType('take-away', this)">กลับบ้าน</button>
                 </div>
-                
                 <div class="form-group">
                     <label>เบอร์โทรศัพท์ (10 หลัก)</label>
-                    <input type="tel" id="custPhone" maxlength="10" placeholder="0XXXXXXXXX" oninput="validatePhone()">
+                    <input type="tel" id="custPhone" maxlength="10" placeholder="0XXXXXXXXX" oninput="handlePhoneInput()">
                     <div id="phoneError" class="phone-error">⚠️ กรุณาใส่เบอร์ให้ครบ 10 หลักด้วยค่ะ</div>
                 </div>
                 <div class="form-group">
                     <label>ชื่อผู้สั่ง</label>
-                    <input type="text" id="custName" placeholder="ระบุชื่อของคุณ">
+                    <input type="text" id="custName" placeholder="ระบุชื่อของคุณ" oninput="saveDraftInfo()">
                 </div>
-
                 <div id="dineInField">
                     <label>เลือกโซนที่นั่ง</label>
                     <div class="zone-selector" style="display:flex; gap:8px;">
@@ -101,23 +76,20 @@
                     <div id="outdoorGrid" class="table-grid"></div>
                     <input type="hidden" id="selectedTable">
                 </div>
-
                 <div id="takeAwayField" style="display: none;">
-                    <div class="form-group"><label>ที่อยู่สำหรับการจัดส่ง</label><textarea id="custAddress" rows="2" placeholder="ระบุที่อยู่..."></textarea></div>
+                    <div class="form-group"><label>ที่อยู่ / จุดรับอาหาร</label><textarea id="custAddress" rows="2" placeholder="ระบุที่อยู่ หรือ 'รับหน้าร้าน'" oninput="saveDraftInfo()"></textarea></div>
                 </div>
             </div>
-
             <div class="card" id="historyCard" style="display: none;">
                 <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 1.1rem;">🕒 สถานะ & ประวัติวันนี้</h3>
                 <div id="historyItems"></div>
             </div>
         </div>
-
         <div class="right-col">
             <div class="card">
                 <h2 style="margin-top:0; font-family: 'Playfair Display'; font-size: 1.3rem;">Current Order</h2>
                 <div id="cartItems"></div>
-                <div class="total-row"><span>ยอดรวม</span><span id="grandTotal">฿0</span></div>
+                <div class="total-row"><span>ยอดรวมรอบนี้</span><span id="grandTotal">฿0</span></div>
                 <div class="action-buttons">
                     <button class="btn-pay" id="btnOrder" onclick="processOrder()">ยืนยันการสั่งทั้งหมด</button>
                     <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
@@ -126,14 +98,60 @@
         </div>
     </div>
 
+    <div id="paymentModal">
+        <div class="qr-card">
+            <h3>ชำระเงินกลับบ้าน</h3>
+            <h2 id="qrTotalDisplay" style="color: var(--gold-accent);">฿0</h2>
+            <img src="image/ภาพหน้าจอ (48).png" class="qr-img">
+            <div class="action-buttons">
+                <button class="btn-pay" onclick="confirmPayment()">แจ้งชำระเงินเรียบร้อย</button>
+                <button class="type-btn" onclick="closeQR()">ปิด</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let currentServiceType = 'dine-in';
+
+        // โหลดข้อมูลร่างที่เคยกรอกไว้ 
+        window.onload = () => {
+            renderTables();
+            loadPageData();
+            restoreDraftInfo();
+        };
+
+        function saveDraftInfo() {
+            sessionStorage.setItem('draftPhone', document.getElementById('custPhone').value);
+            sessionStorage.setItem('draftName', document.getElementById('custName').value);
+            sessionStorage.setItem('draftAddress', document.getElementById('custAddress').value);
+            sessionStorage.setItem('draftType', currentServiceType);
+        }
+
+        function restoreDraftInfo() {
+            const phone = sessionStorage.getItem('draftPhone') || '';
+            const name = sessionStorage.getItem('draftName') || '';
+            const address = sessionStorage.getItem('draftAddress') || '';
+            const type = sessionStorage.getItem('draftType') || 'dine-in';
+
+            if(phone) document.getElementById('custPhone').value = phone;
+            if(name) document.getElementById('custName').value = name;
+            if(address) document.getElementById('custAddress').value = address;
+            
+            if(type === 'take-away') {
+                setServiceType('take-away', document.getElementById('typeTakeAway'));
+            }
+            validatePhone();
+        }
+
+        function handlePhoneInput() {
+            validatePhone();
+            saveDraftInfo();
+        }
 
         function validatePhone() {
             const phone = document.getElementById('custPhone').value.trim();
             const errorElement = document.getElementById('phoneError');
             const btnOrder = document.getElementById('btnOrder');
-
             if (phone.length > 0 && phone.length < 10) {
                 errorElement.style.display = 'block';
                 btnOrder.disabled = true;
@@ -141,12 +159,8 @@
                 errorElement.style.display = 'none';
                 btnOrder.disabled = false;
             }
-            
-            if (phone.length === 10) {
-                updateHistoryUI();
-            } else {
-                document.getElementById('historyCard').style.display = 'none';
-            }
+            if (phone.length === 10) updateHistoryUI();
+            else document.getElementById('historyCard').style.display = 'none';
         }
 
         function toggleZone(zone) {
@@ -157,14 +171,8 @@
         }
 
         function selectTable(id, el) {
-            document.querySelectorAll('.table-item').forEach(i => {
-                i.style.background = '#fff';
-                i.style.color = 'var(--dark-brown)';
-                i.style.borderColor = '#eee';
-            });
-            el.style.background = 'var(--gold-accent)';
-            el.style.color = '#fff';
-            el.style.borderColor = 'var(--gold-accent)';
+            document.querySelectorAll('.table-item').forEach(i => { i.style.background = '#fff'; i.style.color = 'var(--dark-brown)'; });
+            el.style.background = 'var(--gold-accent)'; el.style.color = '#fff';
             document.getElementById('selectedTable').value = id;
         }
 
@@ -180,14 +188,14 @@
             btn.classList.add('active');
             document.getElementById('dineInField').style.display = type === 'dine-in' ? 'block' : 'none';
             document.getElementById('takeAwayField').style.display = type === 'take-away' ? 'block' : 'none';
-            validatePhone();
+            saveDraftInfo();
         }
 
         function loadPageData() {
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
             const container = document.getElementById('cartItems');
             let total = 0;
-            container.innerHTML = cart.length === 0 ? "<p style='color:#999; text-align:center; font-size:13px;'>ไม่มีรายการในตะกร้า</p>" : "";
+            container.innerHTML = cart.length === 0 ? "<p style='color:#999; text-align:center;'>ตะกร้าว่างเปล่า</p>" : "";
             cart.forEach((i) => {
                 container.innerHTML += `<div class="item-row"><div><strong>${i.name}</strong></div><div>฿${i.total}</div></div>`;
                 total += i.total;
@@ -198,81 +206,74 @@
         function updateHistoryUI() {
             const phone = document.getElementById('custPhone').value.trim();
             if (phone.length !== 10) return;
-
             const history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
             const myHistory = history.filter(h => h.phone === phone);
             const container = document.getElementById('historyItems');
-
             if (myHistory.length > 0) {
                 document.getElementById('historyCard').style.display = 'block';
                 container.innerHTML = "";
                 myHistory.reverse().forEach(order => {
-                    let itemsHtml = order.items.map(i => `• ${i.name} (฿${i.total})`).join('<br>');
                     let statusClass = order.status.includes("ปรุง") ? "status-cooking" : 
-                                     (order.status === "เสิร์ฟเรียบร้อยแล้ว" ? "status-done" : 
-                                     (order.status.includes("เสิร์ฟ") || order.status.includes("เสร็จ") ? "status-ready" : "status-order"));
-
-                    container.innerHTML += `
-                        <div class="history-card-item">
-                            <div class="order-header">
-                                <span>🧾 โต๊ะ: ${order.table}</span>
-                                <span class="status-tag ${statusClass}">${order.status}</span>
-                            </div>
-                            <div class="order-item-list">${itemsHtml}</div>
-                            <div style="text-align:right; margin-top:8px; font-weight:bold; color:var(--gold-accent); border-top:1px solid #f9f9f9; padding-top:5px; font-size:14px;">รวมสะสม: ฿${order.grandTotal.toLocaleString()}</div>
-                        </div>`;
+                                     (order.status.includes("เสร็จ") ? "status-ready" : "status-order");
+                    container.innerHTML += `<div class="history-card-item">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
+                            <span>📦 #${order.orderId}</span>
+                            <span class="status-tag ${statusClass}">${order.status}</span>
+                        </div>
+                        <div style="font-size:13px; color:#555;">${order.items.map(i => i.name).join(', ')}</div>
+                        <div style="text-align:right; font-weight:bold; color:var(--gold-accent); margin-top:5px;">฿${order.grandTotal.toLocaleString()}</div>
+                    </div>`;
                 });
-            } else { 
-                document.getElementById('historyCard').style.display = 'none'; 
             }
         }
 
         function processOrder() {
             const phone = document.getElementById('custPhone').value.trim();
             const name = document.getElementById('custName').value.trim();
-            const table = document.getElementById('selectedTable').value;
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-            
-            if (phone.length !== 10) { alert("กรุณาใส่เบอร์ให้ครบ 10 หลักด้วยค่ะ"); return; }
-            if (!name || cart.length === 0) { alert("กรุณากรอกชื่อและเลือกอาหาร"); return; }
-            if (currentServiceType === 'dine-in' && !table) { alert("กรุณาเลือกโต๊ะ"); return; }
+            if (phone.length !== 10 || !name || cart.length === 0) { alert("ข้อมูลไม่ครบ!"); return; }
 
             const now = new Date();
-            const dateKey = now.toLocaleDateString('th-TH');
-            const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
             let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
+            let total = cart.reduce((sum, i) => sum + i.total, 0);
 
-            let existingIdx = history.findIndex(h => h.phone === phone && h.table === (currentServiceType === 'dine-in' ? table : 'กลับบ้าน') && h.date === dateKey);
-
-            if (existingIdx !== -1) {
-                history[existingIdx].items = [...history[existingIdx].items, ...cart];
-                history[existingIdx].grandTotal += cart.reduce((sum, i) => sum + i.total, 0);
-                history[existingIdx].status = "รับรายการเพิ่มแล้ว";
-                history[existingIdx].time = timeStr;
-            } else {
-                history.push({
-                    orderId: Math.floor(Math.random() * 10000),
-                    phone: phone,
-                    customer: name,
-                    items: cart,
-                    grandTotal: cart.reduce((sum, i) => sum + i.total, 0),
-                    status: "รับออเดอร์แล้ว",
-                    date: dateKey,
-                    time: timeStr,
-                    table: currentServiceType === 'dine-in' ? table : "กลับบ้าน"
-                });
-            }
+            history.push({
+                orderId: Math.floor(Math.random() * 10000),
+                phone, customer: name, items: cart, grandTotal: total,
+                status: currentServiceType === 'take-away' ? "รอชำระเงิน" : "รับออเดอร์แล้ว",
+                date: now.toLocaleDateString('th-TH'),
+                table: currentServiceType === 'dine-in' ? (document.getElementById('selectedTable').value || 'A-01') : 'กลับบ้าน'
+            });
 
             localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
             localStorage.removeItem('kindieCart');
-            alert("สั่งอาหารสำเร็จ!");
-            loadPageData();
-            updateHistoryUI();
+
+            if (currentServiceType === 'take-away') {
+                document.getElementById('qrTotalDisplay').innerText = "฿" + total.toLocaleString();
+                document.getElementById('paymentModal').style.display = 'flex';
+            } else {
+                alert("สั่งอาหารสำเร็จ!");
+                loadPageData();
+                updateHistoryUI();
+                simulateStatusUpdate(phone);
+            }
+        }
+
+        function confirmPayment() {
+            const phone = document.getElementById('custPhone').value.trim();
+            let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
+            let idx = history.findLastIndex(h => h.phone === phone);
+            if (idx !== -1) history[idx].status = "ชำระเงินแล้ว (กำลังปรุง)";
+            localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
+            alert("ชำระเงินสำเร็จ!");
+            closeQR();
             simulateStatusUpdate(phone);
         }
 
+        function closeQR() { document.getElementById('paymentModal').style.display = 'none'; loadPageData(); updateHistoryUI(); }
+
         function simulateStatusUpdate(phone) {
-            const steps = ["กำลังเตรียมวัตถุดิบ", "เชฟกำลังปรุงอาหาร", "ปรุงเสร็จแล้ว กำลังนำเสิร์ฟ", "เสิร์ฟเรียบร้อยแล้ว"];
+            const steps = ["กำลังปรุงอาหาร", "ปรุงเสร็จแล้ว", "เสิร์ฟเรียบร้อยแล้ว"];
             let i = 0;
             let interval = setInterval(() => {
                 let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
@@ -282,13 +283,9 @@
                     localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
                     updateHistoryUI();
                     i++;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 6000);
+                } else clearInterval(interval);
+            }, 5000);
         }
-
-        window.onload = () => { renderTables(); loadPageData(); };
     </script>
 </body>
 </html>
