@@ -7,24 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; --white: #ffffff; }
-        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); }
+        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: var(--white); box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo-img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; }
         .container { padding: 40px 8%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; }
         .card { background: var(--white); padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 25px; }
-        h2 { font-family: 'Playfair Display', serif; color: var(--nature-green); border-bottom: 2px solid var(--soft-cream); padding-bottom: 15px; margin-bottom: 20px; }
+        h2 { font-family: 'Playfair Display', serif; color: var(--nature-green); border-bottom: 2px solid var(--soft-cream); padding-bottom: 15px; margin-bottom: 25px; }
         .type-selector { display: flex; gap: 10px; margin-bottom: 25px; }
         .type-btn { flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 12px; background: #fcfcfc; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
         .type-btn.active { background: var(--dark-brown); color: var(--white); border-color: var(--dark-brown); }
         .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 500; }
         input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 12px; box-sizing: border-box; font-family: 'Mitr'; background: #fafafa; }
-        .item-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #eee; }
+        .item-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #eee; font-size: 15px; }
         .total-row { display: flex; justify-content: space-between; font-size: 22px; font-weight: 700; color: var(--gold-accent); margin-top: 20px; }
         .btn-pay { background: var(--dark-brown); color: var(--white); border: none; padding: 16px; border-radius: 15px; width: 100%; cursor: pointer; font-family: 'Mitr'; font-size: 16px; margin-top: 20px; }
-        .btn-add-more { background: var(--gold-accent); color: var(--white); text-decoration: none; padding: 16px; border-radius: 15px; text-align: center; display: block; margin-top: 12px; }
         #paymentModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
         .qr-card { background: var(--white); padding: 40px; border-radius: 30px; text-align: center; width: 90%; max-width: 380px; }
-        .qr-img { width: 240px; height: 240px; margin: 20px 0; border-radius: 20px; border: 1px solid #eee; padding: 10px; }
+        .qr-img { width: 200px; height: 200px; margin: 20px 0; border-radius: 20px; border: 1px solid #eee; padding: 10px; }
     </style>
 </head>
 <body>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="card" id="historyCard" style="display: none;">
-                <h3 style="font-family:'Mitr';">🕒 ประวัติสั่งซื้อวันนี้</h3>
+                <h3 style="font-family:'Mitr'; margin:0; color:var(--nature-green);">🕒 สถานะ & ประวัติวันนี้</h3>
                 <div id="historyItems"></div>
             </div>
         </div>
@@ -69,7 +69,6 @@
                 <div id="cartItems"></div>
                 <div class="total-row"><span>ยอดรวมรอบนี้</span><span id="grandTotal">฿0</span></div>
                 <button class="btn-pay" id="btnOrder" onclick="processOrder()">ยืนยันการสั่งทั้งหมด</button>
-                <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
             </div>
         </div>
     </div>
@@ -79,15 +78,13 @@
             <h3 style="font-family:'Mitr'; margin:0;">สแกนเพื่อจ่ายเงิน</h3>
             <div style="font-size: 28px; font-weight:700; color:var(--gold-accent); margin:10px 0;" id="qrTotalDisplay">฿0</div>
             <img id="qrCodeImg" src="" class="qr-img">
-            <p style="font-size: 13px; color: #777;">สแกนเพื่อเปิดหน้าชำระเงินจำลองบนมือถือ</p>
             <button class="btn-pay" onclick="confirmPayment()">✅ ยืนยันหลังจ่ายเงินในมือถือ</button>
-            <button onclick="closeQR()" style="margin-top:10px; border:none; background:none; cursor:pointer; font-family:'Mitr'; color:#999;">ปิดหน้าต่าง</button>
+            <button onclick="closeQR()" style="margin-top:10px; border:none; background:none; cursor:pointer; color:#999;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
     <script>
         let currentServiceType = 'take-away';
-
         window.onload = () => { loadPageData(); restoreDraftInfo(); };
 
         function loadPageData() {
@@ -132,27 +129,30 @@
         }
 
         function processOrder() {
-            const total = document.getElementById('grandTotal').innerText.replace('฿', '').replace(',', '');
+            const total = document.getElementById('grandTotal').innerText.replace(/[฿,]/g, '');
             const phone = document.getElementById('custPhone').value.trim();
-            if(phone.length !== 10) { alert("กรุณาใส่เบอร์โทรให้ครบค่ะ"); return; }
+            const name = document.getElementById('custName').value.trim();
+            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
+            if(phone.length !== 10 || !name || cart.length === 0) { alert("⚠️ ข้อมูลไม่ครบ!"); return; }
 
             if (currentServiceType === 'take-away') {
                 document.getElementById('qrTotalDisplay').innerText = "฿" + total;
-                // สร้างลิงก์ Dynamic ที่สอดคล้องกับยอดเงิน
-                const mockUrl = new URL('payment_page.html', window.location.href).href + "?amount=" + total;
-                document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(mockUrl)}`;
+                // เจน QR ลิงก์แบบสั้นมาก (ใช้ IP: 192.168.125.105)
+                const mockUrl = `http://192.168.125.105:5500/payment_page.html?amt=${total}`;
+                document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(mockUrl)}`;
                 document.getElementById('paymentModal').style.display = 'flex';
             } else {
-                saveToHistory(total);
+                saveFinalOrder(phone, name, cart, total);
             }
         }
 
-        function saveToHistory(total) {
+        function saveFinalOrder(phone, name, items, total) {
             let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
-            history.push({ orderId: Math.floor(Math.random() * 10000), phone: document.getElementById('custPhone').value, status: "ปรุงอาหาร", grandTotal: total });
+            history.push({ orderId: Math.floor(Math.random() * 10000), phone, customer: name, items, grandTotal: total, status: "ปรุงอาหาร" });
             localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
-            alert("สั่งอาหารสำเร็จ!");
-            updateHistoryUI();
+            localStorage.removeItem('kindieCart'); // ล้าง Current Order
+            loadPageData(); updateHistoryUI();
+            if(currentServiceType !== 'take-away') alert("🎉 สั่งอาหารสำเร็จ!");
         }
 
         function updateHistoryUI() {
@@ -161,14 +161,24 @@
             const myHistory = history.filter(h => h.phone === phone);
             if (myHistory.length > 0) {
                 document.getElementById('historyCard').style.display = 'block';
-                document.getElementById('historyItems').innerHTML = myHistory.map(order => `<div style="padding:10px; border-bottom:1px solid #eee;">📦 #${order.orderId} - ${order.status} <br> <strong>฿${order.grandTotal}</strong></div>`).join('');
+                document.getElementById('historyItems').innerHTML = myHistory.reverse().map(order => `
+                    <div style="padding:15px; border-bottom:1px solid #eee; background:#fafafa; border-radius:15px; margin-bottom:12px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <span style="font-size:12px; color:#999;">#${order.orderId}</span>
+                            <span style="font-size:12px; color:var(--nature-green); font-weight:bold;">${order.status}</span>
+                        </div>
+                        <div style="text-align:right; font-weight:bold; color:var(--gold-accent);">฿${order.grandTotal}</div>
+                    </div>`).join('');
             }
         }
 
-        function confirmPayment() { 
-            const total = document.getElementById('grandTotal').innerText.replace('฿', '').replace(',', '');
-            saveToHistory(total);
-            closeQR(); 
+        function confirmPayment() {
+            const phone = document.getElementById('custPhone').value.trim();
+            const name = document.getElementById('custName').value.trim();
+            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
+            const total = document.getElementById('grandTotal').innerText.replace(/[฿,]/g, '');
+            saveFinalOrder(phone, name, cart, total);
+            closeQR();
         }
 
         function closeQR() { document.getElementById('paymentModal').style.display = 'none'; }
