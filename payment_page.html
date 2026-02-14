@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDIE PAY - ระบบชำระเงินจำลอง</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Mitr', sans-serif; background-color: #4a148c; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .phone-container { background: white; width: 340px; border-radius: 35px; border: 8px solid #333; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .header { background: #4a148c; color: white; padding: 30px 20px; text-align: center; }
+        .content { padding: 25px; text-align: center; }
+        .amount-box { margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 20px; }
+        .amount-value { font-size: 2.5rem; font-weight: 600; color: #333; }
+        .btn-confirm { background: #4a148c; color: white; border: none; padding: 18px; width: 100%; border-radius: 50px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
+        #successScreen { display: none; padding: 40px 20px; }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div id="mainContent">
+            <div class="header"><h2>KINDIE PAY</h2></div>
+            <div class="content">
+                <p>ยอดชำระให้ ร้านอาหารคุณใจดี</p>
+                <div class="amount-box">
+                    <div style="font-size: 14px; color: #666;">จำนวนเงิน</div>
+                    <div class="amount-value" id="displayAmount">฿0.00</div>
+                </div>
+                <button class="btn-confirm" onclick="payNow()">ยืนยันชำระเงิน</button>
+            </div>
+        </div>
+        <div id="successScreen">
+            <div style="font-size: 60px; color: #2ecc71;">✓</div>
+            <h2>ชำระเงินสำเร็จ</h2>
+            <p>ออเดอร์ส่งเข้าครัวเรียบร้อยแล้ว</p>
+            <button class="btn-confirm" onclick="window.close()" style="background:#ddd; color:#333; margin-top:20px;">ปิดหน้านี้</button>
+        </div>
+    </div>
+
+    <script>
+        const amount = new URLSearchParams(window.location.search).get('amount') || '0';
+        document.getElementById('displayAmount').innerText = "฿" + parseFloat(amount).toLocaleString(undefined, {minimumFractionDigits: 2});
+
+        function payNow() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('successScreen').style.display = 'block';
+            // แจ้งเตือนหน้าหลักจำลองผ่าน LocalStorage
+            localStorage.setItem('paymentDone', 'true');
+        }
+    </script>
+</body>
+</html>

@@ -6,286 +6,172 @@
     <title>KINDIE - Checkout & Grouped History</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; --danger: #e74c3c; }
-        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo-img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
-        .container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
-        .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .type-selector { display: flex; gap: 8px; margin-bottom: 20px; }
-        .type-btn { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 10px; background: #f9f9f9; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; font-size: 14px; }
-        .type-btn.active { background: var(--dark-brown); color: #fff; border-color: var(--dark-brown); }
-        .history-card-item { background: #fdfdfd; border: 1px solid #eee; border-radius: 15px; padding: 12px; margin-bottom: 15px; }
-        .status-tag { padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
-        .status-cooking { background: #fff3e0; color: #f57c00; }
-        .status-ready { background: #e8f5e9; color: #2e7d32; }
-        .status-order { background: #e3f2fd; color: #1976d2; }
-        .status-done { background: #eeeeee; color: #666666; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 8px; font-size: 14px; }
-        .total-row { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-top: 15px; color: var(--gold-accent); margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; position: relative; }
-        label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; font-family: 'Mitr'; font-size: 14px; }
-        .phone-error { color: var(--danger); font-size: 11px; margin-top: 5px; display: none; }
-        .action-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        .btn-pay, .btn-add-more { border: none; padding: 14px; border-radius: 12px; cursor: pointer; font-size: 15px; transition: 0.3s; font-weight: 500; display: flex; align-items: center; justify-content: center; text-decoration: none; text-align: center; }
-        .btn-pay { background: var(--dark-brown); color: #fff; }
-        .btn-pay:disabled { background: #ccc; cursor: not-allowed; }
-        .btn-add-more { background: var(--gold-accent); color: white; }
-        .table-grid { display: none; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
-        .table-item { border: 1px solid #eee; padding: 10px 5px; text-align: center; cursor: pointer; border-radius: 8px; font-size: 12px; background: #fff; }
-        #paymentModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
-        .qr-card { background: #fff; padding: 25px; border-radius: 25px; text-align: center; width: 90%; max-width: 350px; }
-        .qr-img { width: 200px; height: 200px; margin: 15px 0; border: 1px solid #eee; }
-        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
+        :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; --white: #ffffff; }
+        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: var(--white); box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo-img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; }
+        .container { padding: 40px 8%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; }
+        .card { background: var(--white); padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 25px; }
+        h2 { font-family: 'Playfair Display', serif; color: var(--nature-green); border-bottom: 2px solid var(--soft-cream); padding-bottom: 15px; margin-bottom: 20px; }
+        .type-selector { display: flex; gap: 10px; margin-bottom: 25px; }
+        .type-btn { flex: 1; padding: 12px; border: 1px solid #eee; border-radius: 12px; background: #fcfcfc; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
+        .type-btn.active { background: var(--dark-brown); color: var(--white); border-color: var(--dark-brown); }
+        .form-group { margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 12px; box-sizing: border-box; font-family: 'Mitr'; background: #fafafa; }
+        .item-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #eee; }
+        .total-row { display: flex; justify-content: space-between; font-size: 22px; font-weight: 700; color: var(--gold-accent); margin-top: 20px; }
+        .btn-pay { background: var(--dark-brown); color: var(--white); border: none; padding: 16px; border-radius: 15px; width: 100%; cursor: pointer; font-family: 'Mitr'; font-size: 16px; margin-top: 20px; }
+        .btn-add-more { background: var(--gold-accent); color: var(--white); text-decoration: none; padding: 16px; border-radius: 15px; text-align: center; display: block; margin-top: 12px; }
+        #paymentModal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+        .qr-card { background: var(--white); padding: 40px; border-radius: 30px; text-align: center; width: 90%; max-width: 380px; }
+        .qr-img { width: 240px; height: 240px; margin: 20px 0; border-radius: 20px; border: 1px solid #eee; padding: 10px; }
     </style>
 </head>
 <body>
     <header>
         <div style="display:flex; align-items:center; gap:10px;">
             <img src="image/a1.jpg" class="logo-img">
-            <span style="font-family:'Playfair Display'; font-weight:700; font-size: 22px;">KINDIE</span>
+            <span style="font-family:'Playfair Display'; font-weight:700; font-size: 24px;">KINDIE</span>
         </div>
-        <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown); font-size: 13px;">หน้าเมนู</a></nav>
+        <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown); font-weight:500;">หน้าเมนู</a></nav>
     </header>
 
     <div class="container">
         <div class="left-col">
             <div class="card">
-                <h2 style="margin-top:0; font-family: 'Playfair Display'; color: var(--nature-green); font-size: 1.3rem;">Customer Info</h2>
+                <h2>Customer Info</h2>
                 <div class="type-selector">
-                    <button type="button" class="type-btn active" id="typeDineIn" onclick="setServiceType('dine-in', this)">ทานที่ร้าน</button>
-                    <button type="button" class="type-btn" id="typeTakeAway" onclick="setServiceType('take-away', this)">กลับบ้าน</button>
+                    <button class="type-btn" id="typeDineIn" onclick="setServiceType('dine-in', this)">ทานที่ร้าน</button>
+                    <button class="type-btn active" id="typeTakeAway" onclick="setServiceType('take-away', this)">กลับบ้าน</button>
                 </div>
                 <div class="form-group">
                     <label>เบอร์โทรศัพท์ (10 หลัก)</label>
                     <input type="tel" id="custPhone" maxlength="10" placeholder="0XXXXXXXXX" oninput="handlePhoneInput()">
-                    <div id="phoneError" class="phone-error">⚠️ กรุณาใส่เบอร์ให้ครบ 10 หลักด้วยค่ะ</div>
                 </div>
                 <div class="form-group">
                     <label>ชื่อผู้สั่ง</label>
                     <input type="text" id="custName" placeholder="ระบุชื่อของคุณ" oninput="saveDraftInfo()">
                 </div>
-                <div id="dineInField">
-                    <label>เลือกโซนที่นั่ง</label>
-                    <div class="zone-selector" style="display:flex; gap:8px;">
-                        <button type="button" class="zone-btn" id="btnIndoor" onclick="toggleZone('indoor')" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:8px; background:#fff; font-family:inherit; font-size:12px;">📍 ในร้าน</button>
-                        <button type="button" class="zone-btn" id="btnOutdoor" onclick="toggleZone('outdoor')" style="flex:1; padding:8px; border:1px solid #ddd; border-radius:8px; background:#fff; font-family:inherit; font-size:12px;">🌳 นอกร้าน</button>
-                    </div>
-                    <div id="indoorGrid" class="table-grid"></div>
-                    <div id="outdoorGrid" class="table-grid"></div>
-                    <input type="hidden" id="selectedTable">
-                </div>
-                <div id="takeAwayField" style="display: none;">
-                    <div class="form-group"><label>ที่อยู่ / จุดรับอาหาร</label><textarea id="custAddress" rows="2" placeholder="ระบุที่อยู่ หรือ 'รับหน้าร้าน'" oninput="saveDraftInfo()"></textarea></div>
+                <div id="takeAwayField">
+                    <label>ที่อยู่ / จุดรับอาหาร</label>
+                    <textarea id="custAddress" rows="3" placeholder="ระบุที่อยู่ หรือ 'รับหน้าร้าน'" oninput="saveDraftInfo()"></textarea>
                 </div>
             </div>
             <div class="card" id="historyCard" style="display: none;">
-                <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 1.1rem;">🕒 สถานะ & ประวัติวันนี้</h3>
+                <h3 style="font-family:'Mitr';">🕒 ประวัติสั่งซื้อวันนี้</h3>
                 <div id="historyItems"></div>
             </div>
         </div>
+
         <div class="right-col">
             <div class="card">
-                <h2 style="margin-top:0; font-family: 'Playfair Display'; font-size: 1.3rem;">Current Order</h2>
+                <h2>Current Order</h2>
                 <div id="cartItems"></div>
                 <div class="total-row"><span>ยอดรวมรอบนี้</span><span id="grandTotal">฿0</span></div>
-                <div class="action-buttons">
-                    <button class="btn-pay" id="btnOrder" onclick="processOrder()">ยืนยันการสั่งทั้งหมด</button>
-                    <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
-                </div>
+                <button class="btn-pay" id="btnOrder" onclick="processOrder()">ยืนยันการสั่งทั้งหมด</button>
+                <a href="menu.html" class="btn-add-more">สั่งเมนูเพิ่ม +</a>
             </div>
         </div>
     </div>
 
     <div id="paymentModal">
         <div class="qr-card">
-            <h3>ชำระเงินกลับบ้าน</h3>
-            <h2 id="qrTotalDisplay" style="color: var(--gold-accent);">฿0</h2>
-            <img src="image/ภาพหน้าจอ (48).png" class="qr-img">
-            <div class="action-buttons">
-                <button class="btn-pay" onclick="confirmPayment()">แจ้งชำระเงินเรียบร้อย</button>
-                <button class="type-btn" onclick="closeQR()">ปิด</button>
-            </div>
+            <h3 style="font-family:'Mitr'; margin:0;">สแกนเพื่อจ่ายเงิน</h3>
+            <div style="font-size: 28px; font-weight:700; color:var(--gold-accent); margin:10px 0;" id="qrTotalDisplay">฿0</div>
+            <img id="qrCodeImg" src="" class="qr-img">
+            <p style="font-size: 13px; color: #777;">สแกนเพื่อเปิดหน้าชำระเงินจำลองบนมือถือ</p>
+            <button class="btn-pay" onclick="confirmPayment()">✅ ยืนยันหลังจ่ายเงินในมือถือ</button>
+            <button onclick="closeQR()" style="margin-top:10px; border:none; background:none; cursor:pointer; font-family:'Mitr'; color:#999;">ปิดหน้าต่าง</button>
         </div>
     </div>
 
     <script>
-        let currentServiceType = 'dine-in';
+        let currentServiceType = 'take-away';
 
-        // โหลดข้อมูลร่างที่เคยกรอกไว้ 
-        window.onload = () => {
-            renderTables();
-            loadPageData();
-            restoreDraftInfo();
-        };
+        window.onload = () => { loadPageData(); restoreDraftInfo(); };
+
+        function loadPageData() {
+            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
+            const container = document.getElementById('cartItems');
+            let total = 0;
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="color:#aaa; text-align:center;">ไม่มีสินค้าในตะกร้า</p>`;
+                document.getElementById('grandTotal').innerText = "฿0";
+                return;
+            }
+            container.innerHTML = cart.map(i => {
+                total += i.total;
+                return `<div class="item-row"><span>${i.name}</span><strong>฿${i.total.toLocaleString()}</strong></div>`;
+            }).join('');
+            document.getElementById('grandTotal').innerText = "฿" + total.toLocaleString();
+        }
 
         function saveDraftInfo() {
             sessionStorage.setItem('draftPhone', document.getElementById('custPhone').value);
             sessionStorage.setItem('draftName', document.getElementById('custName').value);
-            sessionStorage.setItem('draftAddress', document.getElementById('custAddress').value);
-            sessionStorage.setItem('draftType', currentServiceType);
         }
 
         function restoreDraftInfo() {
-            const phone = sessionStorage.getItem('draftPhone') || '';
-            const name = sessionStorage.getItem('draftName') || '';
-            const address = sessionStorage.getItem('draftAddress') || '';
-            const type = sessionStorage.getItem('draftType') || 'dine-in';
-
-            if(phone) document.getElementById('custPhone').value = phone;
-            if(name) document.getElementById('custName').value = name;
-            if(address) document.getElementById('custAddress').value = address;
-            
-            if(type === 'take-away') {
-                setServiceType('take-away', document.getElementById('typeTakeAway'));
-            }
+            document.getElementById('custPhone').value = sessionStorage.getItem('draftPhone') || '';
+            document.getElementById('custName').value = sessionStorage.getItem('draftName') || '';
             validatePhone();
         }
 
-        function handlePhoneInput() {
-            validatePhone();
-            saveDraftInfo();
-        }
+        function handlePhoneInput() { validatePhone(); saveDraftInfo(); }
 
         function validatePhone() {
             const phone = document.getElementById('custPhone').value.trim();
-            const errorElement = document.getElementById('phoneError');
-            const btnOrder = document.getElementById('btnOrder');
-            if (phone.length > 0 && phone.length < 10) {
-                errorElement.style.display = 'block';
-                btnOrder.disabled = true;
-            } else {
-                errorElement.style.display = 'none';
-                btnOrder.disabled = false;
-            }
             if (phone.length === 10) updateHistoryUI();
-            else document.getElementById('historyCard').style.display = 'none';
-        }
-
-        function toggleZone(zone) {
-            document.getElementById('indoorGrid').style.display = zone === 'indoor' ? 'grid' : 'none';
-            document.getElementById('outdoorGrid').style.display = zone === 'outdoor' ? 'grid' : 'none';
-            document.getElementById('btnIndoor').style.borderColor = zone === 'indoor' ? 'var(--nature-green)' : '#ddd';
-            document.getElementById('btnOutdoor').style.borderColor = zone === 'outdoor' ? 'var(--nature-green)' : '#ddd';
-        }
-
-        function selectTable(id, el) {
-            document.querySelectorAll('.table-item').forEach(i => { i.style.background = '#fff'; i.style.color = 'var(--dark-brown)'; });
-            el.style.background = 'var(--gold-accent)'; el.style.color = '#fff';
-            document.getElementById('selectedTable').value = id;
-        }
-
-        function renderTables() {
-            const inG = document.getElementById('indoorGrid'); const outG = document.getElementById('outdoorGrid');
-            for(let i=1; i<=8; i++) inG.innerHTML += `<div class="table-item" onclick="selectTable('A-0${i}', this)">A-0${i}</div>`;
-            for(let i=1; i<=8; i++) outG.innerHTML += `<div class="table-item" onclick="selectTable('B-0${i}', this)">B-0${i}</div>`;
         }
 
         function setServiceType(type, btn) {
             currentServiceType = type;
             document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('dineInField').style.display = type === 'dine-in' ? 'block' : 'none';
             document.getElementById('takeAwayField').style.display = type === 'take-away' ? 'block' : 'none';
-            saveDraftInfo();
         }
 
-        function loadPageData() {
-            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-            const container = document.getElementById('cartItems');
-            let total = 0;
-            container.innerHTML = cart.length === 0 ? "<p style='color:#999; text-align:center;'>ตะกร้าว่างเปล่า</p>" : "";
-            cart.forEach((i) => {
-                container.innerHTML += `<div class="item-row"><div><strong>${i.name}</strong></div><div>฿${i.total}</div></div>`;
-                total += i.total;
-            });
-            document.getElementById('grandTotal').innerText = "฿" + total.toLocaleString();
+        function processOrder() {
+            const total = document.getElementById('grandTotal').innerText.replace('฿', '').replace(',', '');
+            const phone = document.getElementById('custPhone').value.trim();
+            if(phone.length !== 10) { alert("กรุณาใส่เบอร์โทรให้ครบค่ะ"); return; }
+
+            if (currentServiceType === 'take-away') {
+                document.getElementById('qrTotalDisplay').innerText = "฿" + total;
+                // สร้างลิงก์ Dynamic ที่สอดคล้องกับยอดเงิน
+                const mockUrl = new URL('payment_page.html', window.location.href).href + "?amount=" + total;
+                document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(mockUrl)}`;
+                document.getElementById('paymentModal').style.display = 'flex';
+            } else {
+                saveToHistory(total);
+            }
+        }
+
+        function saveToHistory(total) {
+            let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
+            history.push({ orderId: Math.floor(Math.random() * 10000), phone: document.getElementById('custPhone').value, status: "ปรุงอาหาร", grandTotal: total });
+            localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
+            alert("สั่งอาหารสำเร็จ!");
+            updateHistoryUI();
         }
 
         function updateHistoryUI() {
             const phone = document.getElementById('custPhone').value.trim();
-            if (phone.length !== 10) return;
             const history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
             const myHistory = history.filter(h => h.phone === phone);
-            const container = document.getElementById('historyItems');
             if (myHistory.length > 0) {
                 document.getElementById('historyCard').style.display = 'block';
-                container.innerHTML = "";
-                myHistory.reverse().forEach(order => {
-                    let statusClass = order.status.includes("ปรุง") ? "status-cooking" : 
-                                     (order.status.includes("เสร็จ") ? "status-ready" : "status-order");
-                    container.innerHTML += `<div class="history-card-item">
-                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px;">
-                            <span>📦 #${order.orderId}</span>
-                            <span class="status-tag ${statusClass}">${order.status}</span>
-                        </div>
-                        <div style="font-size:13px; color:#555;">${order.items.map(i => i.name).join(', ')}</div>
-                        <div style="text-align:right; font-weight:bold; color:var(--gold-accent); margin-top:5px;">฿${order.grandTotal.toLocaleString()}</div>
-                    </div>`;
-                });
+                document.getElementById('historyItems').innerHTML = myHistory.map(order => `<div style="padding:10px; border-bottom:1px solid #eee;">📦 #${order.orderId} - ${order.status} <br> <strong>฿${order.grandTotal}</strong></div>`).join('');
             }
         }
 
-        function processOrder() {
-            const phone = document.getElementById('custPhone').value.trim();
-            const name = document.getElementById('custName').value.trim();
-            const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
-            if (phone.length !== 10 || !name || cart.length === 0) { alert("ข้อมูลไม่ครบ!"); return; }
-
-            const now = new Date();
-            let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
-            let total = cart.reduce((sum, i) => sum + i.total, 0);
-
-            history.push({
-                orderId: Math.floor(Math.random() * 10000),
-                phone, customer: name, items: cart, grandTotal: total,
-                status: currentServiceType === 'take-away' ? "รอชำระเงิน" : "รับออเดอร์แล้ว",
-                date: now.toLocaleDateString('th-TH'),
-                table: currentServiceType === 'dine-in' ? (document.getElementById('selectedTable').value || 'A-01') : 'กลับบ้าน'
-            });
-
-            localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
-            localStorage.removeItem('kindieCart');
-
-            if (currentServiceType === 'take-away') {
-                document.getElementById('qrTotalDisplay').innerText = "฿" + total.toLocaleString();
-                document.getElementById('paymentModal').style.display = 'flex';
-            } else {
-                alert("สั่งอาหารสำเร็จ!");
-                loadPageData();
-                updateHistoryUI();
-                simulateStatusUpdate(phone);
-            }
+        function confirmPayment() { 
+            const total = document.getElementById('grandTotal').innerText.replace('฿', '').replace(',', '');
+            saveToHistory(total);
+            closeQR(); 
         }
 
-        function confirmPayment() {
-            const phone = document.getElementById('custPhone').value.trim();
-            let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
-            let idx = history.findLastIndex(h => h.phone === phone);
-            if (idx !== -1) history[idx].status = "ชำระเงินแล้ว (กำลังปรุง)";
-            localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
-            alert("ชำระเงินสำเร็จ!");
-            closeQR();
-            simulateStatusUpdate(phone);
-        }
-
-        function closeQR() { document.getElementById('paymentModal').style.display = 'none'; loadPageData(); updateHistoryUI(); }
-
-        function simulateStatusUpdate(phone) {
-            const steps = ["กำลังปรุงอาหาร", "ปรุงเสร็จแล้ว", "เสิร์ฟเรียบร้อยแล้ว"];
-            let i = 0;
-            let interval = setInterval(() => {
-                let history = JSON.parse(localStorage.getItem('kindieHistoryGrouped')) || [];
-                let idx = history.findLastIndex(h => h.phone === phone);
-                if (idx !== -1 && i < steps.length) {
-                    history[idx].status = steps[i];
-                    localStorage.setItem('kindieHistoryGrouped', JSON.stringify(history));
-                    updateHistoryUI();
-                    i++;
-                } else clearInterval(interval);
-            }, 5000);
-        }
+        function closeQR() { document.getElementById('paymentModal').style.display = 'none'; }
     </script>
 </body>
 </html>
