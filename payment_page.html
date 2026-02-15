@@ -12,7 +12,6 @@
         .amount-box { background: #f8f9fa; padding: 20px; border-radius: 20px; margin: 25px 0; }
         .amount { font-size: 2.5rem; font-weight: 600; color: #333; }
         .btn-pay { background: #4a148c; color: white; border: none; padding: 18px; width: 100%; border-radius: 50px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; }
-        /* ปรับสีปุ่มให้น่าดึงดูดขึ้น */
         .btn-close { background: #4a148c; color: white; border: none; padding: 15px; width: 100%; border-radius: 50px; margin-top: 15px; cursor: pointer; font-family: 'Mitr'; transition: 0.3s; }
         .btn-close:hover { background: #6a1b9a; }
     </style>
@@ -32,11 +31,10 @@
         <div class="success-circle">✓</div>
         <h2 style="color:#333;">ชำระเงินสำเร็จ</h2>
         <p style="color:#666;">ขอบคุณที่ใช้บริการค่ะ</p>
-        <button class="btn-close" onclick="goToCheckout()">กลับสู่หน้าร้าน</button>
+        <button class="btn-close" onclick="goToCheckout()">ดูสถานะออเดอร์ของคุณ</button>
     </div>
 
     <script>
-        // ดึงยอดเงินจาก URL
         const params = new URLSearchParams(window.location.search);
         const amt = params.get('amt') || '0';
         document.getElementById('amtDisplay').innerText = "฿" + parseFloat(amt).toLocaleString();
@@ -47,11 +45,11 @@
         }
 
         function goToCheckout() {
-            // 1. แจ้งเตือนหน้าหลักว่าจ่ายเงินสำเร็จแล้ว
+            // 1. ตั้งสถานะการจ่ายเงิน
             localStorage.setItem('paymentDone', 'true');
             
-            // 2. เด้งกลับไปที่หน้า checkout.html ทันที
-            window.location.href = "checkout.html";
+            // 2. เด้งไปหน้าติดตามสถานะตามที่คุณสั่งไว้
+            window.location.href = "order_history.html"; 
         }
     </script>
 </body>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDIE - Track Order History</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3d2b1f;
+            --accent-color: #b5894b;
+            --bg-color: #fdfaf5;
+            --success-green: #465c47;
+            --white: #ffffff;
+        }
+
+        body { font-family: 'Mitr', sans-serif; background: var(--bg-color); margin: 0; padding: 20px; color: var(--primary-color); }
+        .container { max-width: 550px; margin: 0 auto; }
+        
+        .header-section { text-align: center; margin-bottom: 30px; }
+        .phone-display { background: var(--accent-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; display: inline-block; margin-top: 5px; }
+
+        .order-card { 
+            background: var(--white); 
+            padding: 25px; 
+            border-radius: 25px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            margin-bottom: 20px; 
+            border-left: 6px solid var(--accent-color);
+            transition: 0.3s;
+        }
+        
+        .status-badge { 
+            background: #e8f5e9; 
+            color: var(--success-green); 
+            padding: 6px 15px; 
+            border-radius: 50px; 
+            font-weight: 500; 
+            font-size: 13px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .order-items { font-size: 15px; margin: 10px 0; line-height: 1.5; }
+        .order-meta { font-size: 12px; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 10px; margin-top: 15px; }
+        .price { font-size: 18px; font-weight: 600; color: var(--accent-color); }
+
+        .btn-group { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 30px; }
+        .btn-back { 
+            background: var(--primary-color); 
+            color: white; 
+            text-decoration: none; 
+            padding: 18px; 
+            border-radius: 18px; 
+            text-align: center; 
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-back:hover { opacity: 0.9; }
+
+        .empty-state { text-align: center; padding: 50px 20px; color: #bbb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-section">
+            <h2 style="margin:0; color: var(--success-green);">📋 ประวัติคำสั่งซื้อของคุณ</h2>
+            <div id="phoneInfo" class="phone-display">เบอร์โทรศัพท์: -</div>
+        </div>
+
+        <div id="orderList">
+            </div>
+
+        <div class="btn-group">
+            <a href="menu.html" class="btn-back" onclick="clearSession()">กลับไปหน้าหลัก / สั่งอาหารเพิ่ม</a>
+        </div>
+    </div>
+
+    <script>
+        const taFlow = ["ร้านรับออเดอร์แล้ว", "กำลังปรุงอาหาร (10-15 นาที)", "ปรุงเสร็จแล้ว", "กำลังไปส่ง", "ส่งสินค้าเรียบร้อย"];
+        
+        function updateDisplay() {
+            const phone = localStorage.getItem('lastTAPhone');
+            if (phone) {
+                document.getElementById('phoneInfo').innerText = `เบอร์โทรศัพท์: ${phone}`;
+            }
+
+            const history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
+            // กรองข้อมูลเฉพาะสั่งกลับบ้าน (take-away) และตรงกับเบอร์โทรศัพท์นี้
+            const myOrders = history.filter(h => h.key === phone && h.type === 'take-away');
+
+            const orderListDiv = document.getElementById('orderList');
+
+            if(myOrders.length > 0) {
+                // แสดงผลเรียงจาก ใหม่ไปเก่า (Reverse)
+                orderListDiv.innerHTML = myOrders.reverse().map(order => `
+                    <div class="order-card">
+                        <div class="status-badge">● ${taFlow[order.stIndex || 0]}</div>
+                        <div class="order-items">
+                            <b>รายการอาหาร:</b><br>
+                            ${order.items}
+                        </div>
+                        <div class="order-meta">
+                            <span>เวลาสั่ง: ${order.time}</span>
+                            <span class="price">${order.total}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                orderListDiv.innerHTML = `
+                    <div class="empty-state">
+                        <p>ไม่พบประวัติการสั่งซื้อสำหรับเบอร์นี้</p>
+                    </div>`;
+            }
+        }
+
+        // ระบบอัปเดตสถานะอัตโนมัติ (ขยับทุกออเดอร์ของเบอร์นี้)
+        setInterval(() => {
+            let history = JSON.parse(localStorage.getItem('kindieHistory')) || [];
+            let isChanged = false;
+
+            history.forEach(h => {
+                // อัปเดตเฉพาะออเดอร์สั่งกลับบ้านที่ยังส่งไม่สำเร็จ
+                if(h.type === 'take-away' && (h.stIndex || 0) < taFlow.length - 1) {
+                    h.stIndex = (h.stIndex || 0) + 1;
+                    isChanged = true;
+                }
+            });
+
+            if (isChanged) {
+                localStorage.setItem('kindieHistory', JSON.stringify(history));
+                updateDisplay();
+            }
+        }, 12000); // อัปเดตทุก 12 วินาทีเพื่อให้ดูสมจริง
+
+        function clearSession() {
+            // ล้างสถานะการจ่ายเงินเพื่อให้สั่งใหม่ได้ลื่นไหล
+            localStorage.removeItem('paymentDone');
+        }
+
+        // โหลดข้อมูลครั้งแรก
+        updateDisplay();
+    </script>
+</body>
+</html>

@@ -15,40 +15,33 @@
         body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); min-height: 100vh; }
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: var(--white); box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo-img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
-
         .container { padding: 20px 5%; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; align-items: start; }
-        
-        /* ปรับปรุงให้พอดีกับมือถือ */
         @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
 
         .card { background: var(--white); padding: 30px; border-radius: 25px; box-shadow: var(--shadow); border: 1px solid rgba(181, 137, 75, 0.1); margin-bottom: 20px; }
-        h2 { font-family: 'Playfair Display', serif; color: var(--nature-green); font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid var(--soft-cream); padding-bottom: 10px; }
+        h2 { font-family: 'Playfair Display', serif; color: var(--nature-green); font-size: 24px; margin-bottom: 25px; border-bottom: 2px solid var(--soft-cream); padding-bottom: 10px; }
 
         .type-selector { display: flex; gap: 10px; margin-bottom: 25px; }
         .type-btn { flex: 1; padding: 12px; border: 1.5px solid #eee; border-radius: 12px; background: #fff; cursor: pointer; transition: 0.3s; font-family: 'Mitr'; font-size: 15px; }
         .type-btn.active { background: var(--dark-brown); color: var(--white); border-color: var(--dark-brown); }
 
-        .input-group { margin-bottom: 15px; }
-        input, textarea, select { width: 100%; padding: 15px; border: 1.5px solid #f0f0f0; border-radius: 12px; box-sizing: border-box; font-family: 'Mitr'; background: #fafafa; font-size: 14px; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--gold-accent); background: #fff; }
+        .input-group { margin-bottom: 20px; }
+        input, textarea, select { width: 100%; padding: 15px; border: 1.5px solid #f0f0f0; border-radius: 12px; box-sizing: border-box; font-family: 'Mitr'; background: #fafafa; font-size: 14px; outline: none; }
 
-        /* เลขโต๊ะ A01-A09 / B01-B12 */
         .zone-title { font-size: 13px; font-weight: 500; color: var(--gold-accent); margin: 15px 0 10px; display: block; }
         .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px; }
         .table-btn { padding: 10px 5px; border: 1px solid #eee; border-radius: 10px; background: #fff; cursor: pointer; font-size: 12px; transition: 0.2s; font-family: 'Mitr'; }
         .table-btn.selected { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
 
         .item-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px dashed #eee; }
-        .edit-pill { background: var(--danger); color: white; padding: 6px 20px; border-radius: 20px; font-size: 11px; border: none; cursor: pointer; font-family: 'Mitr'; }
-
-        .total-row { display: flex; justify-content: space-between; padding-top: 20px; font-size: 24px; font-weight: 700; color: var(--gold-accent); }
+        .edit-pill { background: var(--danger); color: white; padding: 6px 20px; border-radius: 25px; font-size: 11px; border: none; cursor: pointer; transition: 0.3s; }
+        .total-row { display: flex; justify-content: space-between; padding-top: 20px; font-size: 22px; font-weight: 700; color: var(--gold-accent); }
         
-        /* ปุ่มขนาดเท่ากันสมบูรณ์ */
         .action-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        .btn-main { background: var(--dark-brown); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; cursor: pointer; font-family: 'Mitr'; font-size: 17px; font-weight: 500; }
+        .btn-main { background: var(--dark-brown); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; cursor: pointer; font-family: 'Mitr'; font-size: 17px; font-weight: 500; box-sizing: border-box; }
         .btn-secondary { background: var(--gold-accent); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; text-align: center; text-decoration: none; display: block; font-family: 'Mitr'; font-size: 17px; box-sizing: border-box; }
 
-        .history-item { padding: 15px; border-bottom: 1px solid #eee; background: #fafafa; border-radius: 15px; margin-bottom: 10px; font-size: 13px; border-left: 5px solid var(--gold-accent); }
+        .history-item { padding: 15px; border-bottom: 1px solid #eee; background: #fafafa; border-radius: 15px; margin-bottom: 10px; font-size: 13px; border-left: 5px solid var(--nature-green); }
 
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
         .modal-card { background: white; width: 90%; max-width: 400px; padding: 30px; border-radius: 30px; text-align: center; }
@@ -62,7 +55,9 @@
             <img src="image/a1.jpg" class="logo-img">
             <span class="brand-name" style="font-family:'Playfair Display'; font-weight:700; font-size: 22px;">KINDIE</span>
         </div>
-        <nav><a href="menu.html" style="text-decoration:none; color:var(--dark-brown); font-size: 14px;">หน้าเมนู</a></nav>
+       <nav class="nav-links">
+            <a href="menu.html" style="text-decoration:none; color:var(--dark-brown); font-size: 14px;">หน้าเมนู</a>
+        </nav>
     </header>
 
     <div class="container">
@@ -75,7 +70,6 @@
                 </div>
 
                 <div id="dineInFields">
-                    <div class="input-group"><input type="text" id="dineInName" placeholder="ระบุชื่อลูกค้า"></div>
                     <span class="zone-title">📍 โซนในร้าน (A01 - A09)</span>
                     <div id="gridA" class="table-grid"></div>
                     <span class="zone-title">🌳 โซนนอกร้าน (B01 - B12)</span>
@@ -136,25 +130,9 @@
     <script>
         let currentMode = 'dine-in'; let selectedTable = null; let editingIdx = null;
         const dineInFlow = ["รอครัวรับออเดอร์", "กำลังปรุงอาหาร", "พร้อมเสิร์ฟ", "เสิร์ฟเรียบร้อย"];
-        const taFlow = ["ร้านรับออเดอร์แล้ว", "กำลังปรุงอาหาร (10-15 นาที)", "ปรุงเสร็จแล้ว", "กำลังไปส่ง", "ส่งสำเร็จเรียบร้อย"];
+        const taFlow = ["ร้านรับออเดอร์แล้ว", "กำลังปรุงอาหาร (10-15 นาที)", "ปรุงเสร็จแล้ว", "กำลังไปส่ง", "ส่งสินค้าเรียบร้อย"];
 
-        window.onload = () => { 
-            renderTables(); 
-            loadCart(); 
-            checkAutoTable(); 
-            checkPaymentFinish(); // ตรวจสอบการกลับมาจากหน้าจ่ายเงิน
-            setInterval(autoUpdateStatus, 12000); 
-        };
-
-        function checkPaymentFinish() {
-            if (localStorage.getItem('paymentDone') === 'true') {
-                localStorage.removeItem('kindieCart');
-                localStorage.removeItem('paymentDone');
-                loadCart();
-                if(document.getElementById('taPhone').value.length === 10) handlePhoneHistory();
-                alert("🎉 ชำระเงินสำเร็จ! กำลังเตรียมออเดอร์ให้คุณค่ะ");
-            }
-        }
+        window.onload = () => { renderTables(); loadCart(); checkAutoTable(); checkPaymentFinish(); setInterval(autoUpdateStatus, 12000); };
 
         function renderTables() {
             const gridA = document.getElementById('gridA'); const gridB = document.getElementById('gridB');
@@ -189,23 +167,15 @@
         function showHistory(type, key) {
             const historyData = JSON.parse(localStorage.getItem('kindieHistory')) || [];
             const now = new Date().getTime();
-            // เงื่อนไขล้างโต๊ะ 2 ชม.
             const filtered = historyData.filter(h => h.type !== 'dine-in' || (now - h.timestamp < 2 * 60 * 60 * 1000));
-            localStorage.setItem('kindieHistory', JSON.stringify(filtered));
-
             const myHistory = filtered.filter(h => h.key === key && h.type === type);
             if(myHistory.length > 0) {
                 document.getElementById('historyCard').style.display = 'block';
                 document.getElementById('historyItems').innerHTML = myHistory.reverse().map(h => {
                     const flow = h.type === 'dine-in' ? dineInFlow : taFlow;
-                    return `<div class="history-item">
-                        <span style="color:var(--nature-green); font-weight:bold; float:right;">${flow[h.stIndex || 0]}</span>
-                        <b>รายการ:</b> ${h.items} <br>
-                        <small style="color:#888;">${h.type === 'dine-in' ? '(โต๊ะ '+h.key+')' : '(กลับบ้าน)'} | ${h.time}</small> <br>
-                        <b style="color:var(--gold-accent); font-size:15px;">${h.total}</b>
-                    </div>`;
+                    return `<div class="history-item"><span style="color:var(--nature-green); font-weight:bold; float:right;">${flow[h.stIndex || 0]}</span><b>${h.type === 'dine-in' ? 'โต๊ะ '+h.key : 'กลับบ้าน'}</b><br><small>${h.items}</small><br><b>${h.total}</b></div>`;
                 }).join('');
-            } else { document.getElementById('historyCard').style.display = 'none'; }
+            }
         }
 
         function autoUpdateStatus() {
@@ -218,14 +188,13 @@
             if(changed) {
                 localStorage.setItem('kindieHistory', JSON.stringify(history));
                 if(currentMode === 'dine-in' && selectedTable) showHistory('dine-in', selectedTable);
-                if(currentMode === 'take-away' && document.getElementById('taPhone').value.length === 10) handlePhoneHistory();
             }
         }
 
         function loadCart() {
             const cart = JSON.parse(localStorage.getItem('kindieCart')) || [];
             const container = document.getElementById('cartItems'); let total = 0;
-            if (cart.length === 0) { container.innerHTML = `<p style="color:#aaa; text-align:center; padding:10px;">ไม่มีรายการในตะกร้า</p>`; document.getElementById('grandTotal').innerText = "฿0"; return; }
+            if (cart.length === 0) { container.innerHTML = `<p style="color:#aaa; text-align:center;">ไม่มีรายการในตะกร้า</p>`; document.getElementById('grandTotal').innerText = "฿0"; return; }
             container.innerHTML = cart.map((i, idx) => {
                 total += i.total;
                 return `<div class="item-row"><div style="font-size:14px;"><b>${i.name}</b><br><small>฿${i.total.toLocaleString()}</small></div><button class="edit-pill" onclick="openEdit(${idx})">แก้ไข</button></div>`;
@@ -247,6 +216,8 @@
                 const phone = document.getElementById('taPhone').value;
                 if(phone.length < 10) { alert("กรุณากรอกเบอร์โทรค่ะ"); return; }
                 saveToHistory('take-away', phone, cart, totalText);
+                localStorage.setItem('lastTAPhone', phone);
+                localStorage.removeItem('kindieCart'); 
                 window.location.href = `payment_page.html?amt=${totalVal}`;
             }
         }
@@ -262,6 +233,7 @@
         function saveEdit() { let cart = JSON.parse(localStorage.getItem('kindieCart')); const q = parseInt(document.getElementById('editQty').innerText); const meat = document.getElementById('editMeat').value; const unitPrice = cart[editingIdx].total / (cart[editingIdx].qty || 1); cart[editingIdx].name = cart[editingIdx].name.split(' (')[0] + ` (${meat})`; cart[editingIdx].qty = q; cart[editingIdx].total = q * unitPrice; localStorage.setItem('kindieCart', JSON.stringify(cart)); loadCart(); closeModal(); }
         function closeModal() { document.getElementById('editModal').style.display = 'none'; }
         function checkAutoTable() { const last = JSON.parse(localStorage.getItem('lastTableInfo')); if(last && (new Date().getTime() - last.time < 3 * 60 * 60 * 1000)) selectTable(last.id); }
+        function checkPaymentFinish() { if (localStorage.getItem('paymentDone') === 'true') { localStorage.removeItem('paymentDone'); window.location.href = "order_history.html"; } }
     </script>
 </body>
 </html>
