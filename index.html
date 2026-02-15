@@ -8,65 +8,118 @@
     <style>
         :root { 
             --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; 
-            --white: #ffffff; --shadow: 0 10px 40px rgba(61, 43, 31, 0.06);
+            --white: #ffffff; --shadow: 0 12px 45px rgba(61, 43, 31, 0.08);
         }
 
         body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; line-height: 1.6; }
         
-        /* จัดระเบียบแถบเมนูข้างบนให้ดูโปร่งและสวยงาม */
+        /* Navbar */
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 8%; background: var(--white); position: sticky; 
-            top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.04); 
+            padding: 18px 8%; background: var(--white); position: sticky; 
+            top: 0; z-index: 1000; box-shadow: 0 5px 25px rgba(0,0,0,0.05); 
         }
 
-        .brand-container { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-accent); padding: 2px; background: #fff; }
-        .shop-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin: 0; letter-spacing: 1px; }
+        .brand-container { display: flex; align-items: center; gap: 14px; }
+        .logo-img { height: 55px; width: 55px; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--gold-accent); padding: 2px; background: #fff; }
+        .shop-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin: 0; letter-spacing: 1px; }
 
-        .nav-links { display: flex; gap: 25px; }
-        .nav-links a { text-decoration: none; color: var(--dark-brown); font-size: 14px; transition: 0.3s; font-weight: 400; position: relative; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a { text-decoration: none; color: var(--dark-brown); font-size: 15px; transition: 0.3s; font-weight: 400; position: relative; }
         .nav-links a:hover { color: var(--gold-accent); }
         .nav-links a::after { content: ''; width: 0; height: 2px; background: var(--gold-accent); position: absolute; bottom: -5px; left: 0; transition: 0.3s; }
         .nav-links a:hover::after { width: 100%; }
 
-        /* ส่วน Hero Banner */
-        .hero-banner { padding: 25px 5%; }
+        /* Hero Banner (ขยายขนาด +110%) */
+        .hero-banner { padding: 30px 5%; }
         .banner-box { 
-            width: 100%; height: 420px; border-radius: 30px; 
+            width: 100%; height: 460px; border-radius: 35px; 
             background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.15)), url('image/Gemini_Generated_Image_es0zc4es0zc4es0z.png') center/cover; 
-            display: flex; align-items: center; justify-content: center; border: 6px solid #fff; box-shadow: var(--shadow);
-            transition: 0.5s ease;
+            display: flex; align-items: center; justify-content: center; border: 7px solid #fff; box-shadow: var(--shadow);
         }
-        .banner-content h1 { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; margin: 0; font-style: italic; text-shadow: 3px 3px 20px rgba(0,0,0,0.4); letter-spacing: 3px; }
+        .banner-content h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; color: #fff; margin: 0; font-style: italic; text-shadow: 3px 3px 25px rgba(0,0,0,0.4); letter-spacing: 4px; }
 
-        /* ส่วนเมนูแนะนำ */
-        .featured-section { padding: 50px 8%; text-align: center; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 40px; position: relative; display: inline-block; }
-        .section-title::after { content: ''; width: 50px; height: 3px; background: var(--gold-accent); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
+        /* Featured Section */
+        .featured-section { padding: 60px 8%; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 36px; margin-bottom: 45px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; width: 60px; height: 3px; background: var(--gold-accent); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
         
-        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .menu-item { background: var(--white); border-radius: 25px; overflow: hidden; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: var(--shadow); border: 1px solid rgba(181, 137, 75, 0.05); }
-        .menu-item:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(61, 43, 31, 0.12); }
-        .menu-img { width: 100%; height: 280px; object-fit: cover; }
-        .menu-detail { padding: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 500; }
-        .menu-price { color: var(--gold-accent); font-weight: 600; font-size: 20px; background: rgba(181, 137, 75, 0.08); padding: 6px 15px; border-radius: 15px; }
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 35px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .menu-item { 
+            background: var(--white); 
+            border-radius: 30px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: var(--shadow); 
+            border: 1px solid rgba(181, 137, 75, 0.05); 
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .menu-item:hover { transform: translateY(-15px); box-shadow: 0 25px 50px rgba(61, 43, 31, 0.15); }
+
+        .menu-img-container {
+            width: 100%;
+            padding-top: 68%; /* รักษาสัดส่วนภาพให้เท่ากันเป๊ะทุกใบ */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-img { 
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+        }
+
+        .menu-detail { 
+            padding: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 18px; 
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        .menu-price { 
+            color: var(--gold-accent); 
+            font-weight: 600; 
+            font-size: 22px; 
+            background: rgba(181, 137, 75, 0.08); 
+            padding: 8px 20px; 
+            border-radius: 15px; 
+        }
         
-        /* ปรับปรุงให้พอดีเป๊ะในมือถือ */
+        /* ปรับปรุงให้พอดีเป๊ะในมือถือ (Responsive) */
         @media (max-width: 768px) {
-            header { padding: 15px 5%; flex-direction: column; gap: 15px; }
-            .nav-links { gap: 12px; flex-wrap: wrap; justify-content: center; }
+            header { padding: 15px 5%; flex-direction: column; gap: 18px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .nav-links a { font-size: 13px; }
-            .shop-name { font-size: 22px; }
+            .shop-name { font-size: 24px; }
             
             .hero-banner { padding: 15px 4%; }
-            .banner-box { height: 280px; border-radius: 20px; border-width: 4px; }
-            .banner-content h1 { font-size: 2.8rem; letter-spacing: 1px; }
+            .banner-box { height: 300px; border-radius: 25px; border-width: 5px; }
+            .banner-content h1 { font-size: 3rem; letter-spacing: 2px; }
             
-            .menu-grid { grid-template-columns: 1fr; gap: 20px; }
-            .menu-img { height: 220px; }
-            .section-title { font-size: 26px; }
-            .featured-section { padding: 30px 6%; }
+            .menu-grid { 
+                grid-template-columns: 1fr; /* ปรับเป็นแถวเดียวเพื่อให้ภาพใหญ่ขึ้นในมือถือ */
+                gap: 25px; 
+            }
+            .menu-img-container { padding-top: 65%; } 
+            .section-title { font-size: 28px; }
+            .featured-section { padding: 40px 6%; }
+            .menu-detail { padding: 20px; font-size: 17px; }
+            .menu-price { font-size: 19px; padding: 6px 15px; }
         }
     </style>
 </head>
@@ -80,7 +133,7 @@
             <a href="index.html">หน้าหลัก</a>
             <a href="menu.html">เมนูอาหาร</a>
             <a href="reservation.html">จองโต๊ะ</a>
-            <a href="checkout.html">สรุปออเดอร์</a>
+            <a href="checkout.html">คำสั่งซื้อ</a>
         </nav>
     </header>
 
@@ -95,19 +148,19 @@
             <h2 class="section-title">Signature Menu</h2>
             <div class="menu-grid">
                 <div class="menu-item" onclick="location.href='menu.html'">
-                    <img src="image/b1.jpg" class="menu-img">
+                    <div class="menu-img-container"><img src="image/b1.jpg" class="menu-img"></div>
                     <div class="menu-detail"><div>กุ้งอบวุ้นเส้น</div><div class="menu-price">฿180</div></div>
                 </div>
                 <div class="menu-item" onclick="location.href='menu.html'">
-                    <img src="image/Gemini_Generated_Image_jhltinjhltinjhlt.png" class="menu-img">
+                    <div class="menu-img-container"><img src="image/Gemini_Generated_Image_jhltinjhltinjhlt.png" class="menu-img"></div>
                     <div class="menu-detail"><div>บิงซูเกล็ดหิมะ</div><div class="menu-price">฿120</div></div>
                 </div>
                 <div class="menu-item" onclick="location.href='menu.html'">
-                    <img src="image/t1.jpg" class="menu-img">
+                    <div class="menu-img-container"><img src="image/t1.jpg" class="menu-img"></div>
                     <div class="menu-detail"><div>ตำถาดซีฟู้ด</div><div class="menu-price">฿380</div></div>
                 </div>
                 <div class="menu-item" onclick="location.href='menu.html'">
-                    <img src="image/m2.jpg" class="menu-img">
+                    <div class="menu-img-container"><img src="image/m2.jpg" class="menu-img"></div>
                     <div class="menu-detail"><div>มัทฉะกรีนที</div><div class="menu-price">฿70</div></div>
                 </div>
             </div>

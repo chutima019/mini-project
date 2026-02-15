@@ -10,14 +10,12 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; line-height: 1.6; }
         
-        /* Navbar ตามหน้า Index */
         header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.04); }
         .brand-container { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-accent); padding: 2px; }
         .shop-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin: 0; }
         .nav-links a { text-decoration: none; color: var(--dark-brown); font-size: 14px; margin-left: 20px; transition: 0.3s; }
 
-        /* แถบทางลัดหมวดหมู่ */
         .cat-nav { background: #fff; padding: 10px 0; position: sticky; top: 75px; z-index: 999; box-shadow: 0 2px 15px rgba(0,0,0,0.02); display: flex; justify-content: center; gap: 10px; overflow-x: auto; white-space: nowrap; padding-left: 20px; padding-right: 20px; }
         .cat-link { padding: 8px 18px; border-radius: 20px; background: var(--soft-cream); color: var(--dark-brown); text-decoration: none; font-size: 13px; border: 1px solid #eee; transition: 0.3s; }
         .cat-link:hover { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
@@ -26,7 +24,6 @@
         .cat-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 50px 0 25px; color: var(--nature-green); display: flex; align-items: center; gap: 20px; scroll-margin-top: 150px; }
         .cat-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, #ddd, transparent); }
 
-        /* จัดวาง 2 คอลัมน์ในมือถือ */
         .menu-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
         .menu-item { background: var(--white); border-radius: 25px; overflow: hidden; cursor: pointer; transition: 0.4s; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); display: flex; flex-direction: column; }
         .menu-item:hover { transform: translateY(-8px); border-color: var(--gold-accent); }
@@ -35,10 +32,10 @@
         .item-info h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 500; }
         .item-price { color: var(--gold-accent); font-weight: 700; font-size: 1.1rem; }
 
-        /* Modal ตัวเลือกครบถ้วน */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(61, 43, 31, 0.75); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: var(--white); padding: 30px; border-radius: 30px; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; position: relative; }
         .close-btn { position: absolute; right: 20px; top: 15px; font-size: 28px; color: #ccc; cursor: pointer; }
+        
         .option-group { margin: 15px 0; text-align: left; }
         label { font-size: 0.9rem; font-weight: 600; color: var(--gold-accent); display: block; margin-bottom: 5px; margin-top: 10px; }
         select, input[type="text"] { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid #f0f0f0; background: #fafafa; font-size: 14px; font-family: 'Mitr'; box-sizing: border-box; outline: none; }
@@ -54,7 +51,7 @@
 
     <header>
         <div class="brand-container"><img src="image/a1.jpg" class="logo-img"><span class="shop-name">KINDIE</span></div>
-        <nav class="nav-links"><a href="index.html">หน้าหลัก</a><a href="menu.html" style="color: var(--gold-accent);">เมนูอาหาร</a><a href="reservation.html">จองโต๊ะ</a><a href="checkout.html">สรุปออเดอร์</a></nav>
+        <nav class="nav-links"><a href="index.html">หน้าหลัก</a><a href="menu.html" style="color: var(--gold-accent);">เมนูอาหาร</a><a href="reservation.html">จองโต๊ะ</a><a href="checkout.html">คำสั่งซื้อ</a></nav>
     </header>
 
     <div class="cat-nav">
@@ -95,8 +92,8 @@
         <div class="menu-list">
             <div class="menu-item" onclick="openOrder('ข้าวเหนียวมะม่วง', 80, 'none')"><img src="image/d1.jpg"><div class="item-info"><h3>ข้าวเหนียวมะม่วง</h3><span class="item-price">฿80</span></div></div>
             <div class="menu-item" onclick="openOrder('ทับทิมกรอบน้ำกะทิ', 35, 'none')"><img src="image/d2.jpg"><div class="item-info"><h3>ทับทิมกรอบน้ำกะทิ</h3><span class="item-price">฿35</span></div></div>
-            <div class="menu-item" onclick="openOrder('บัวลอย', 85, 'bualoy')"><img src="image/d3.jpg"><div class="item-info"><h3>บัวลอย</h3><span class="item-price">฿85</span></div></div>
-            <div class="menu-item" onclick="openOrder('เค้ก', 45, 'cake')"><img src="image/d4.jpg"><div class="item-info"><h3>เค้ก</h3><span class="item-price">฿45</span></div></div>
+            <div class="menu-item" onclick="openOrder('บัวลอย', 85, 'none')"><img src="image/d3.jpg"><div class="item-info"><h3>บัวลอย</h3><span class="item-price">฿85</span></div></div>
+            <div class="menu-item" onclick="openOrder('เค้ก', 45, 'none')"><img src="image/d4.jpg"><div class="item-info"><h3>เค้ก</h3><span class="item-price">฿45</span></div></div>
             <div class="menu-item" onclick="openOrder('บิงซูเกล็ดหิมะ', 120, 'dessert_opt')"><img src="image/Gemini_Generated_Image_jhltinjhltinjhlt.png"><div class="item-info"><h3>บิงซูเกล็ดหิมะ</h3><span class="item-price">฿120</span></div></div>
             <div class="menu-item" onclick="openOrder('น้ำแข็งใส', 30, 'dessert_opt')"><img src="image/Gemini_Generated_Image_4p58dk4p58dk4p58.png"><div class="item-info"><h3>น้ำแข็งใส</h3><span class="item-price">฿30</span></div></div>
         </div>
@@ -142,8 +139,10 @@
                     <select id="topping"><option value="ขนมปัง">ขนมปัง</option><option value="บราวนี่">บราวนี่</option><option value="วุ้นมะพร้าว">วุ้นมะพร้าว</option></select>
                 </div>
 
-                <label>หมายเหตุเพิ่มเติม</label>
-                <input type="text" id="itemNote" placeholder="เช่น ไม่เผ็ดมาก, แยกน้ำแข็ง...">
+                <div id="noteOpt">
+                    <label>หมายเหตุเพิ่มเติม</label>
+                    <input type="text" id="itemNote" placeholder="เช่น ไม่เผ็ดมาก, แยกน้ำแข็ง...">
+                </div>
             </div>
 
             <p style="font-size: 1.4rem; font-weight: bold; color: var(--gold-accent);">ยอดรวม: ฿<span id="totalPrice">0</span></p>
@@ -161,11 +160,19 @@
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('orderQtyDisplay').innerText = 1;
             document.getElementById('itemNote').value = "";
-            const opts = ['meatOpt', 'drinkOpt', 'dessertOpt'];
+            
+            const opts = ['meatOpt', 'drinkOpt', 'dessertOpt', 'noteOpt'];
             opts.forEach(id => document.getElementById(id).style.display = 'none');
+            
+            // ถ้าไม่ใช่เมนูข้าว (type !== 'none') ให้แสดงช่องหมายเหตุ
+            if (type !== 'none') {
+                document.getElementById('noteOpt').style.display = 'block';
+            }
+            
             if (type === 'meat') document.getElementById('meatOpt').style.display = 'block';
             if (type === 'drink') document.getElementById('drinkOpt').style.display = 'block';
             if (type === 'dessert_opt') document.getElementById('dessertOpt').style.display = 'block';
+            
             updatePrice(); document.getElementById('orderModal').style.display = 'flex';
         }
 
