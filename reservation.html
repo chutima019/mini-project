@@ -6,288 +6,80 @@
     <title>KINDIE - Reserve a Table</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-brown: #3d2b1f; --soft-cream: #fdfaf5; --gold-accent: #b5894b; --nature-green: #465c47; --danger: #e74c3c; }
-        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--soft-cream); color: var(--dark-brown); overflow-x: hidden; }
-        
-        /* Header ปรับให้กะทัดรัดในมือถือ */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo-img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold-accent); }
-        .nav-links a { text-decoration: none; color: var(--dark-brown); margin-left: 15px; font-size: 13px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold-accent); }
-
-        /* Container ปรับจาก 2 คอลัมน์เป็น 1 คอลัมน์ในมือถือ */
-        .container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { background: #fff; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-
-        .form-group { margin-bottom: 15px; position: relative; }
-        label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; font-family: 'Mitr'; font-size: 14px; }
-        
-        .phone-error { color: var(--danger); font-size: 11px; margin-top: 5px; display: none; }
-
-        /* Zone Selector ปรับขนาดปุ่ม */
-        .zone-selector { display: flex; gap: 8px; margin: 15px 0; }
-        .zone-btn { flex: 1; padding: 10px; border: 1px solid #eee; border-radius: 10px; background: #fff; cursor: pointer; font-family: 'Mitr'; font-size: 13px; transition: 0.3s; }
-        .zone-btn.active { border-color: var(--nature-green); background: #f0f4f0; font-weight: 500; color: var(--nature-green); }
-
-        /* Table Grid ปรับจำนวนคอลัมน์ตามขนาดจอ */
-        .table-grid { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 15px; padding: 12px; background: #f9f9f9; border-radius: 15px; border: 1px dashed #ddd; }
-        .table-item { padding: 8px; border: 1px solid #eee; border-radius: 8px; text-align: center; cursor: pointer; font-size: 12px; background: #fff; height: 35px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .table-item.selected { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
-        .table-item.occupied { background: #ffebee; color: #ef5350; cursor: not-allowed; border-color: #ffcdd2; }
-        .table-item.occupied::before { content: "จองแล้ว"; position: absolute; font-size: 8px; font-weight: 600; width: 100%; text-align: center; }
-        .table-item.occupied span { visibility: hidden; }
-
-        .btn-reserve { background: var(--dark-brown); color: #fff; border: none; padding: 15px; border-radius: 30px; width: 100%; cursor: pointer; font-size: 1rem; font-weight: 500; margin-top: 10px; transition: 0.3s; }
-        .btn-reserve:disabled { background: #ccc; cursor: not-allowed; }
-
-        /* History Section */
-        .history-item { padding: 15px; border-radius: 15px; background: #fdfdfd; border: 1px solid #eee; margin-bottom: 12px; }
-        .history-meta { font-size: 12px; color: #888; margin-top: 4px; }
-        .status-badge { padding: 2px 8px; border-radius: 20px; font-size: 10px; margin-top: 8px; display: inline-block; }
-        .status-active { background: #e8f5e9; color: #2e7d32; }
-        .status-pending { background: #fff3e0; color: #f57c00; }
-        .status-cancelled { background: #f5f5f5; color: #8c8c8c; }
-        .btn-cancel { background: #fff1f0; color: #ff4d4f; border: 1px solid #ffa39e; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 11px; margin-top: 10px; font-family: 'Mitr'; width: 100%; }
-
-        /* Responsive */
-        @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; padding: 15px 4%; }
-            header { padding: 10px 4%; }
-            .nav-links a { margin-left: 10px; font-size: 12px; }
-            .card { padding: 15px; }
-            .table-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        @media (max-width: 400px) {
-            .nav-links a { font-size: 11px; margin-left: 6px; }
-            .table-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        :root { --primary: #3d2b1f; --accent: #b5894b; --bg: #fdfaf5; --success: #465c47; --danger: #e74c3c; }
+        body { margin: 0; font-family: 'Mitr', sans-serif; background: var(--bg); color: var(--primary); }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo-img { height: 45px; width: 45px; border-radius: 50%; border: 1.5px solid var(--accent); object-fit: cover; }
+        .container { padding: 30px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
+        .card { background: #fff; padding: 30px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; }
+        input, select { width: 100%; padding: 15px; border: 1.5px solid #f0f0f0; border-radius: 15px; background: #fafafa; font-family: 'Mitr'; outline: none; }
+        .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; margin-top: 15px; }
+        .t-box { padding: 12px; border: 1.5px solid #eee; border-radius: 12px; text-align: center; cursor: pointer; background: #fff; font-size: 13px; transition: 0.3s; position: relative; }
+        .t-box.selected { background: var(--accent); color: white; border-color: var(--accent); }
+        .t-box.occupied { background: #fee2e2; color: #ef4444; cursor: not-allowed; border-color: #fecaca; }
+        .t-box.occupied::after { content: "จองแล้ว"; position: absolute; bottom: 2px; left: 0; width: 100%; font-size: 7px; font-weight: 600; }
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 18px; border-radius: 50px; width: 100%; font-size: 17px; cursor: pointer; margin-top: 20px; }
+        .h-card { padding: 20px; border-bottom: 1px solid #eee; background: #fafafa; border-radius: 15px; margin-bottom: 15px; border-left: 5px solid var(--success); }
     </style>
 </head>
 <body>
-
     <header>
-        <div style="display:flex; align-items:center; gap:10px;">
-            <img src="image/a1.jpg" class="logo-img">
-            <span style="font-family:'Playfair Display'; font-weight:700; font-size: 20px;">KINDIE</span>
-        </div>
-        <nav class="nav-links">
-            <a href="index.html">หน้าหลัก</a>
-            <a href="menu.html">เมนู</a>
-            <a href="reservation.html">จองโต๊ะ</a>
-            <a href="checkout.html">ชำระเงิน</a>
-            <a href="order_history.html">คำสั่งซื้อ</a>
-        </nav>
+        <div style="display:flex; align-items:center; gap:12px;"><img src="image/a1.jpg" class="logo-img"><span style="font-family:'Playfair Display'; font-weight:700; font-size: 24px;">KINDIE</span></div>
+        <nav class="nav-links" style="font-size:14px;"><a href="index.html" style="text-decoration:none; color:var(--primary);">หน้าหลัก</a></nav>
     </header>
-
     <div class="container">
-        <div class="booking-section">
+        <div class="left">
             <div class="card">
-                <h2 style="margin-top:0; font-family:'Playfair Display'; color: var(--nature-green); font-size: 1.4rem;">Book a Table</h2>
-                
+                <h2 style="font-family:'Playfair Display'; color: var(--success); margin-top:0;">Book a Table</h2>
+                <div class="form-group"><label>เบอร์โทรศัพท์</label><input type="tel" id="cPhone" maxlength="10" placeholder="0XXXXXXXXX"></div>
+                <div class="form-group"><label>ชื่อผู้จอง</label><input type="text" id="cName" placeholder="ระบุชื่อของคุณ"></div>
                 <div class="form-group">
-                    <label>เบอร์โทรศัพท์ (10 หลัก)</label>
-                    <input type="tel" id="custPhone" maxlength="10" placeholder="0XXXXXXXXX" oninput="validateBookingForm()">
-                    <div id="phoneError" class="phone-error">⚠️ กรุณาใส่เบอร์ให้ครบ 10 หลักด้วยค่ะ</div>
+                    <label>เลือกโต๊ะ (A=ในร้าน, B=นอกร้าน)</label>
+                    <div id="grid" class="table-grid"></div>
                 </div>
-
-                <div class="form-group">
-                    <label>ชื่อผู้จอง</label>
-                    <input type="text" id="custName" placeholder="กรุณาระบุชื่อของคุณ" oninput="validateBookingForm()">
-                </div>
-
-                <div class="form-group">
-                    <label>วันที่จอง</label>
-                    <input type="date" id="resDate" onchange="refreshTables()">
-                </div>
-                
-                <div class="form-group">
-                    <label>เวลาที่ต้องการจอง</label>
-                    <select id="resTime" onchange="refreshTables()">
-                        <option value="10:00">10:00 น.</option>
-                        <option value="11:00">11:00 น.</option>
-                        <option value="12:00">12:00 น.</option>
-                        <option value="13:00">13:00 น.</option>
-                        <option value="14:00">14:00 น.</option>
-                        <option value="15:00">15:00 น.</option>
-                        <option value="16:00">16:00 น.</option>
-                        <option value="17:00">17:00 น.</option>
-                        <option value="18:00">18:00 น.</option>
-                        <option value="19:00">19:00 น.</option>
-                        <option value="20:00">20:00 น.</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>เลือกโซนที่นั่ง</label>
-                    <div class="zone-selector">
-                        <button type="button" class="zone-btn" id="btnIn" onclick="showZone('indoor')">📍 ในร้าน (A)</button>
-                        <button type="button" class="zone-btn" id="btnOut" onclick="showZone('outdoor')">🌳 นอกร้าน (B)</button>
-                    </div>
-                    <div id="gridIn" class="table-grid"></div>
-                    <div id="gridOut" class="table-grid"></div>
-                    <input type="hidden" id="selectedTable">
-                </div>
-
-                <button class="btn-reserve" id="btnSubmit" onclick="bookTable()">ยืนยันการจองที่นั่ง</button>
+                <button class="btn-submit" onclick="doBook()">ยืนยันการจองที่นั่ง</button>
             </div>
         </div>
-
-        <div class="history-section">
-            <div class="card" id="historyCard" style="display:none;">
-                <h3 style="margin-top:0; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 1.2rem;">🕒 รายการจองของคุณ</h3>
-                <div id="historyItems"></div>
+        <div class="right">
+            <div class="card" id="hSection" style="display:none;">
+                <h3 style="margin-top:0;">🕒 รายการจองของคุณ</h3>
+                <div id="hList"></div>
             </div>
         </div>
     </div>
-
     <script>
-        document.getElementById('resDate').valueAsDate = new Date();
-        document.getElementById('resDate').min = new Date().toISOString().split("T")[0];
-
-        function validateBookingForm() {
-            const phone = document.getElementById('custPhone').value.trim();
-            const errorElement = document.getElementById('phoneError');
-            const btnSubmit = document.getElementById('btnSubmit');
-
-            if (phone.length > 0 && phone.length < 10) {
-                errorElement.style.display = 'block';
-                btnSubmit.disabled = true;
-            } else {
-                errorElement.style.display = 'none';
-                btnSubmit.disabled = false;
-            }
-
-            if (phone.length === 10) {
-                loadHistory();
-            } else {
-                document.getElementById('historyCard').style.display = 'none';
+        let selectedT = null;
+        window.onload = () => { render(); if(localStorage.getItem('lastP')) { document.getElementById('cPhone').value = localStorage.getItem('lastP'); loadH(); } };
+        function render() {
+            const g = document.getElementById('grid'); g.innerHTML = '';
+            const booked = JSON.parse(localStorage.getItem('kindieReservations')) || [];
+            for(let i=1; i<=21; i++) {
+                const id = i <= 9 ? `A-${i.toString().padStart(2,'0')}` : `B-${(i-9).toString().padStart(2,'0')}`;
+                const isOcc = booked.some(b => b.table === id && b.status === 'จองสำเร็จ') || Math.random() < 0.2;
+                g.innerHTML += `<div class="t-box ${isOcc ? 'occupied' : ''}" id="t${id}" onclick="sel('${id}')">${id}</div>`;
             }
         }
-
-        function getRandomOccupied() {
-            const randoms = [];
-            const count = 4 + Math.floor(Math.random() * 3);
-            while(randoms.length < count) {
-                const rand = Math.floor(Math.random() * 20) + 1;
-                if(!randoms.includes(rand)) randoms.push(rand);
-            }
-            return randoms;
+        function sel(id) {
+            if(document.getElementById('t'+id).classList.contains('occupied')) return;
+            selectedT = id; document.querySelectorAll('.t-box').forEach(b => b.classList.remove('selected'));
+            document.getElementById('t'+id).classList.add('selected');
         }
-
-        function showZone(zone) {
-            document.getElementById('gridIn').style.display = zone === 'indoor' ? 'grid' : 'none';
-            document.getElementById('gridOut').style.display = zone === 'outdoor' ? 'grid' : 'none';
-            document.getElementById('btnIn').classList.toggle('active', zone === 'indoor');
-            document.getElementById('btnOut').classList.toggle('active', zone === 'outdoor');
-            refreshTables();
-        }
-
-        function refreshTables() {
-            const date = document.getElementById('resDate').value;
-            const time = document.getElementById('resTime').value;
-            const gridIn = document.getElementById('gridIn');
-            const gridOut = document.getElementById('gridOut');
-            const allBookings = JSON.parse(localStorage.getItem('kindieReservations')) || [];
-            
-            const randomOccupied = getRandomOccupied();
-            gridIn.innerHTML = ""; gridOut.innerHTML = "";
-
-            for(let i=1; i<=20; i++) {
-                const id = i <= 8 ? `A-${i.toString().padStart(2,'0')}` : `B-${(i-8).toString().padStart(2,'0')}`;
-                const isRealOccupied = allBookings.some(b => b.date === date && b.time === time && b.table === id && b.status === 'จองสำเร็จ');
-                const isRandomOccupied = randomOccupied.includes(i);
-                const isUnavailable = isRealOccupied || isRandomOccupied;
-
-                const div = document.createElement('div');
-                div.className = `table-item ${isUnavailable ? 'occupied' : ''}`;
-                div.innerHTML = `<span>${id}</span>`;
-                
-                if(!isUnavailable) {
-                    div.onclick = () => selectThisTable(id, div);
-                }
-                
-                if(i <= 8) gridIn.appendChild(div); else gridOut.appendChild(div);
-            }
-        }
-
-        function selectThisTable(id, el) {
-            document.querySelectorAll('.table-item').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-            document.getElementById('selectedTable').value = id;
-        }
-
-        function bookTable() {
-            const phone = document.getElementById('custPhone').value.trim();
-            const name = document.getElementById('custName').value.trim();
-            const date = document.getElementById('resDate').value;
-            const time = document.getElementById('resTime').value;
-            const table = document.getElementById('selectedTable').value;
-
-            if(phone.length !== 10) { alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลักค่ะ"); return; }
-            if(!name || !table) { alert("กรุณาระบุชื่อและเลือกโต๊ะที่ว่างครับ"); return; }
-
-            const newRes = { id: Date.now(), phone, customer: name, date, time, table, status: 'จองสำเร็จ' };
+        function doBook() {
+            const p = document.getElementById('cPhone').value; const n = document.getElementById('cName').value;
+            if(p.length<10 || !n || !selectedT) { alert("กรุณากรอกข้อมูลและเลือกโต๊ะค่ะ"); return; }
             let all = JSON.parse(localStorage.getItem('kindieReservations')) || [];
-            all.push(newRes);
+            all.push({ phone:p, name:n, table:selectedT, status:'จองสำเร็จ', time:new Date().toLocaleString() });
             localStorage.setItem('kindieReservations', JSON.stringify(all));
-
-            alert("จองโต๊ะสำเร็จ!");
-            document.getElementById('selectedTable').value = "";
-            refreshTables();
-            loadHistory();
+            localStorage.setItem('lastP', p); alert("จองสำเร็จ!"); location.reload();
         }
-
-        function loadHistory() {
-            const phone = document.getElementById('custPhone').value.trim();
-            if (phone.length !== 10) return;
-
-            const all = JSON.parse(localStorage.getItem('kindieReservations')) || [];
-            const historyItems = document.getElementById('historyItems');
-            const myRes = all.filter(r => r.phone === phone);
-
-            if(myRes.length > 0) {
-                document.getElementById('historyCard').style.display = 'block';
-                historyItems.innerHTML = "";
-                myRes.reverse().forEach(r => {
-                    const sClass = r.status === 'จองสำเร็จ' ? 'status-active' : (r.status === 'กำลังดำเนินการยกเลิก' ? 'status-pending' : 'status-cancelled');
-                    let actionHtml = r.status === 'จองสำเร็จ' ? `<button class="btn-cancel" onclick="requestCancel(${r.id})">ยกเลิกการจอง</button>` : '';
-                    
-                    historyItems.innerHTML += `
-                        <div class="history-item">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <strong>โต๊ะ ${r.table}</strong>
-                                <span class="status-badge ${sClass}">${r.status}</span>
-                            </div>
-                            <div class="history-meta">📅 ${r.date} | ⏰ ${r.time} น.</div>
-                            <div class="history-meta">👤 ชื่อ: ${r.customer}</div>
-                            ${actionHtml}
-                        </div>`;
-                });
-            } else {
-                document.getElementById('historyCard').style.display = 'none';
-            }
+        function loadH() {
+            const p = localStorage.getItem('lastP'); const all = JSON.parse(localStorage.getItem('kindieReservations')) || [];
+            const my = all.filter(r => r.phone === p);
+            if(my.length>0) { document.getElementById('hSection').style.display='block'; document.getElementById('hList').innerHTML = my.reverse().map(r => `<div class="h-card"><b>โต๊ะ ${r.table}</b><br><small>${r.time}</small></div>`).join(''); }
         }
-
-        function requestCancel(id) {
-            let all = JSON.parse(localStorage.getItem('kindieReservations'));
-            const idx = all.findIndex(r => r.id === id);
-            all[idx].status = 'กำลังดำเนินการยกเลิก';
-            localStorage.setItem('kindieReservations', JSON.stringify(all));
-            loadHistory();
-
-            setTimeout(() => {
-                all = JSON.parse(localStorage.getItem('kindieReservations'));
-                const i = all.findIndex(r => r.id === id);
-                all[i].status = 'ยกเลิกแล้ว';
-                localStorage.setItem('kindieReservations', JSON.stringify(all));
-                loadHistory();
-                refreshTables();
-            }, 2000);
-        }
-
-        window.onload = () => { showZone('indoor'); };
     </script>
 </body>
 </html>
